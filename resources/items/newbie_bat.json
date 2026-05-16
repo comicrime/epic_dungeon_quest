@@ -1,0 +1,13 @@
+{
+	"name":"newbie bat", 
+	"type":"weapon",
+	"attributes":[
+		{
+			"type":"weapon_props",
+			"base_damage": 2,
+			"armour_penetration":0,
+			"effects":[],
+			"enchantments":[]
+		}
+	]
+}

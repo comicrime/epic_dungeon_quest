@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cgrh6au4vqx1w"]
+
+[ext_resource type="Script" uid="uid://qhvn2o7f3nt7" path="res://src/old/pick_checker.gd" id="1_j5b2g"]
+
+[node name="PickChecker" type="Node" unique_id=865744777]
+script = ExtResource("1_j5b2g")

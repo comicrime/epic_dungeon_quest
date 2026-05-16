@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ccben6tnpm6nf"]
+
+[ext_resource type="Script" uid="uid://ymweq6ahd4nq" path="res://src/old/interaction_component.gd" id="1_8b000"]
+
+[node name="InteractionComponent" type="Node" unique_id=1224223818]
+script = ExtResource("1_8b000")
+itypes = Array[int]([1, 2])

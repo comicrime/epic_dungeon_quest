@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cevbc8s1g6k1j"]
+
+[ext_resource type="Script" uid="uid://dd60j3emt42b7" path="res://src/old/picker_component.gd" id="1_4nbot"]
+
+[node name="PickerComponent" type="Node" unique_id=1248024594]
+script = ExtResource("1_4nbot")

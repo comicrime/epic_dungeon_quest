@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="EntityDefinition" format=3 uid="uid://cygm827krfld3"]
+
+[ext_resource type="Texture2D" uid="uid://w7gdnq1qlo4h" path="res://resources/default_death_texture.tres" id="1_03e3r"]
+[ext_resource type="Script" uid="uid://c5f7p2bhs1yre" path="res://src/definitions/entity_def.gd" id="1_h0fqj"]
+[ext_resource type="Script" uid="uid://d15qxhbuvqm0l" path="res://src/definitions/fighter_component_def.gd" id="2_2ev0t"]
+[ext_resource type="Texture2D" uid="uid://dmwyct7y10fbs" path="res://assets/raw/1bitpack_kenney_1.2/Tilesheet/monochrome-transparent.png" id="2_j1yk8"]
+
+[sub_resource type="Resource" id="Resource_gd7sc"]
+script = ExtResource("2_2ev0t")
+max_hp = 10
+power = 2
+metadata/_custom_type_script = "uid://d15qxhbuvqm0l"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vt1r2"]
+atlas = ExtResource("2_j1yk8")
+region = Rect2(527, 136, 16, 16)
+
+[resource]
+script = ExtResource("1_h0fqj")
+name = "Sewers Rat"
+texture = SubResource("AtlasTexture_vt1r2")
+color = Color(0.05638861, 0.19060197, 0.23672375, 1)
+fighter_definition = SubResource("Resource_gd7sc")
+ai_type = 1

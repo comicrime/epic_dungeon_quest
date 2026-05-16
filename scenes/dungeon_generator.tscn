@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ct3vudbasqt2t"]
+
+[ext_resource type="Script" uid="uid://dr6lpbbfj3hse" path="res://src/dungeon_generator.gd" id="1_08e2k"]
+
+[node name="DungeonGenerator" type="Node" unique_id=668080787]
+script = ExtResource("1_08e2k")
+entity_types = null
+entity_spawn_rates = null
+items = null
+map_width = null
+map_height = null
+max_rooms = null
+room_max_size = null
+room_min_size = null
+max_monsters_per_room = null

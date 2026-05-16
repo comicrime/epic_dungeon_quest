@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bp7sybnms8vgg"]
+
+[ext_resource type="Texture2D" uid="uid://ggwbpi783p2x" path="res://icon.svg" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bdyjc0tidcr5l" path="res://src/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://cevbc8s1g6k1j" path="res://scenes/picker_component.tscn" id="3_qhqgy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
+size = Vector2(10, 10)
+
+[node name="Player" type="CharacterBody2D" unique_id=1176608598]
+script = ExtResource("1_g2els")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1593956352]
+position = Vector2(-1.9073486e-06, -1.9073486e-06)
+scale = Vector2(0.14062497, 0.14062497)
+texture = ExtResource("1_3vyb7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=671289658]
+position = Vector2(-1.9073486e-06, -1.9073486e-06)
+shape = SubResource("RectangleShape2D_u8vuu")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=893782245]
+zoom = Vector2(3, 3)
+
+[node name="PickerComponent" parent="." unique_id=1248024594 node_paths=PackedStringArray("obj_ref") instance=ExtResource("3_qhqgy")]
+obj_ref = NodePath("..")

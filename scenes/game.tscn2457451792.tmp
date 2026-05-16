@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://d2permyigfkyc"]
+
+[ext_resource type="Script" uid="uid://w4021be4ex16" path="res://src/game.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://shui6nrr8th6" path="res://src/handlers/input_handler.gd" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://ct3vudbasqt2t" path="res://scenes/dungeon_generator.tscn" id="2_yqjtg"]
+[ext_resource type="Resource" uid="uid://cygm827krfld3" path="res://resources/entities/sewers_rat.tres" id="3_lnu2h"]
+
+[node name="Game" type="Control" unique_id=437210718]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartMenu" type="Control" parent="." unique_id=13382591]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="Container" parent="StartMenu" unique_id=2126678558]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartMenu/Container" unique_id=748437872]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="InGameUI" type="Control" parent="." unique_id=1071166301]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1628704341]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1775747857]
+handle_input_locally = false
+size = Vector2i(40, 40)
+render_target_update_mode = 4
+
+[node name="Game" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1426893471]
+script = ExtResource("1_yqjtg")
+
+[node name="InputHandler" type="Node" parent="SubViewportContainer/SubViewport/Game" unique_id=1465795623]
+unique_name_in_owner = true
+script = ExtResource("2_lbhrr")
+
+[node name="MainGameInputHandler" type="Node" parent="SubViewportContainer/SubViewport/Game/InputHandler" unique_id=961562332]
+unique_name_in_owner = true
+
+[node name="GameOverInputHandler" type="Node" parent="SubViewportContainer/SubViewport/Game/InputHandler" unique_id=2080671179]
+unique_name_in_owner = true
+
+[node name="HistoryViewerInputHandler" type="Node" parent="SubViewportContainer/SubViewport/Game/InputHandler" unique_id=339097628]
+unique_name_in_owner = true
+
+[node name="Map" type="Node2D" parent="SubViewportContainer/SubViewport/Game" unique_id=1289663434]
+unique_name_in_owner = true
+
+[node name="DungeonGenerator" parent="SubViewportContainer/SubViewport/Game/Map" unique_id=668080787 instance=ExtResource("2_yqjtg")]
+entity_types = Dictionary[String, Resource]({
+"sewers_rat": ExtResource("3_lnu2h")
+})
+entity_spawn_rates = Dictionary[String, float]({
+"sewers_rat": 0.8
+})
+
+[node name="Tiles" type="Node2D" parent="SubViewportContainer/SubViewport/Game/Map" unique_id=1652269484]
+
+[node name="Items" type="Node2D" parent="SubViewportContainer/SubViewport/Game/Map" unique_id=1163096768]
+
+[node name="Entities" type="Node2D" parent="SubViewportContainer/SubViewport/Game/Map" unique_id=368463037]
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Game" unique_id=649464467]
