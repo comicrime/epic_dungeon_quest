@@ -1,41 +1,21 @@
 class_name MapData
 
-# Map model
-
-enum TileType {
-	BrickWall1, 
-	CobbleFloor1,
-	CobbleFloor2,
-	LedderUP,
-	LedderDOWN,
-	Door1,
-}
-
-const tile_types: Dictionary[TileType, Resource] = {
-	TileType.BrickWall1: preload("res://resources/tiles/brick_walls_1.tres"),
-	TileType.CobbleFloor1: preload("res://resources/tiles/cobble_floor_1.tres"),
-	TileType.CobbleFloor2: preload("res://resources/tiles/cobble_floor_2.tres"),
-	TileType.LedderUP: preload("res://resources/tiles/ledder_up.tres"),
-	TileType.LedderDOWN: preload("res://resources/tiles/ledder_down.tres"),
-	TileType.Door1: preload("res://resources/tiles/door_1.tres"),
-}
-
 const _cobbles_spawnrate: float = 0.8
 const entity_pathfinding_weight: float = 10.0
 
-func floor_type(rng: RandomNumberGenerator) -> Resource:
+func floor_type(rng: RandomNumberGenerator) -> Tile.Type:
 	if rng.randf() <= _cobbles_spawnrate:
-		return tile_types.get(TileType.CobbleFloor1)
+		return Tile.Type.CobbleFloor1
 
-	return tile_types.get(TileType.CobbleFloor2)
+	return Tile.Type.CobbleFloor2
 
-func get_ledder(up: bool) -> Resource: 
+func get_ledder(up: bool) -> Tile.Type: 
 	if up: 
-		return tile_types.get(TileType.LedderUP) 
-	return tile_types.get(TileType.LedderDOWN)
+		return Tile.Type.LedderUP
+	return Tile.Type.LedderDOWN
 
-func get_door() -> Resource: 
-	return tile_types.get(TileType.Door1)
+func get_door() -> Tile.Type: 
+	return Tile.Type.Door1
 
 var width: int
 var height: int
@@ -60,7 +40,7 @@ func _setup_tiles() -> void:
 	for y in height:
 		for x in width:	
 			var tile_position := Vector2i(x, y)			
-			var tile := Tile.new(tile_position, tile_types.get(TileType.BrickWall1))
+			var tile := Tile.new(tile_position, Tile.Type.BrickWall1)
 			tiles.append(tile)
 
 func is_in_bounds(coordinate: Vector2i) -> bool:

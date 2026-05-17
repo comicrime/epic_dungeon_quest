@@ -99,17 +99,41 @@ func _carve_room(dungeon: MapData, room: Rect2i) -> void:
 				#_place_door(dungeon, Vector2i(x, y))
 					
 
-func _tunnel_horizontal(dungeon: MapData, y: int, x_start: int, x_end: int) -> void:
+func _tunnel_horizontal(dungeon: MapData, y: int, x_start: int, x_end: int, 
+	start_room: Rect2i, end_room: Rect2i,
+) -> void:
 	var x_min: int = mini(x_start, x_end)
 	var x_max: int = maxi(x_start, x_end)
+	
+	var tile_o: Tile = dungeon.get_tile(Vector2i(x_min+1, y))
+	var last_el: Tile.Type = tile_o.type
 	for x in range(x_min, x_max + 1):
-		_carve_tile(dungeon, x, y)
+		var vec: Vector2i = Vector2i(x, y)
+		var tile: Tile = dungeon.get_tile(vec)
+		print("last_type: ", str(last_el))
+		if tile.type != last_el: 
+			last_el = tile.type
+			_place_door(dungeon, vec)
+		else: 
+			_carve_tile(dungeon, x, y)
 
-func _tunnel_vertical(dungeon: MapData, x: int, y_start: int, y_end: int) -> void:
+func _tunnel_vertical(dungeon: MapData, x: int, y_start: int, y_end: int, 
+	start_room: Rect2i, end_room: Rect2i,
+) -> void:
 	var y_min: int = mini(y_start, y_end)
 	var y_max: int = maxi(y_start, y_end)
+	
+	var tile_o: Tile = dungeon.get_tile(Vector2i(x, y_min+1))
+	var last_el: Tile.Type = tile_o.type
 	for y in range(y_min, y_max + 1):
-		_carve_tile(dungeon, x, y)
+		var vec: Vector2i = Vector2i(x, y)
+		var tile: Tile = dungeon.get_tile(vec)
+		print("last_type: ", str(last_el))
+		if tile.type != last_el: 
+			last_el = tile.type
+			_place_door(dungeon, vec)
+		else: 
+			_carve_tile(dungeon, x, y)
 
 func _tunnel_between(dungeon: MapData, start_room: Rect2i, end_room: Rect2i) -> void:
 	var start: Vector2i = start_room.get_center()
@@ -118,11 +142,11 @@ func _tunnel_between(dungeon: MapData, start_room: Rect2i, end_room: Rect2i) -> 
 	#var end: Vector2i = _adjust_center_randomly(end_room)
 	
 	if _rng.randf() < 0.5:
-		_tunnel_horizontal(dungeon, start.y, start.x, end.x)
-		_tunnel_vertical(dungeon, end.x, start.y, end.y)
+		_tunnel_horizontal(dungeon, start.y, start.x, end.x, start_room, end_room)
+		_tunnel_vertical(dungeon, end.x, start.y, end.y, start_room, end_room)
 	else:
-		_tunnel_vertical(dungeon, start.x, start.y, end.y)
-		_tunnel_horizontal(dungeon, end.y, start.x, end.x)
+		_tunnel_vertical(dungeon, start.x, start.y, end.y, start_room, end_room)
+		_tunnel_horizontal(dungeon, end.y, start.x, end.x, start_room, end_room)
 
 func _adjust_center_randomly(room: Rect2i) -> Vector2i: 
 	var adjusted_y: int = _rng.randi_range(room.position.y, room.end.y)
