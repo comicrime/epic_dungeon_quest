@@ -5,13 +5,19 @@ class_name MapData
 enum TileType {
 	BrickWall1, 
 	CobbleFloor1,
-	CobbleFloor2
+	CobbleFloor2,
+	LedderUP,
+	LedderDOWN,
+	Door1,
 }
 
 const tile_types: Dictionary[TileType, Resource] = {
 	TileType.BrickWall1: preload("res://resources/tiles/brick_walls_1.tres"),
 	TileType.CobbleFloor1: preload("res://resources/tiles/cobble_floor_1.tres"),
-	TileType.CobbleFloor2: preload("res://resources/tiles/cobble_floor_2.tres")
+	TileType.CobbleFloor2: preload("res://resources/tiles/cobble_floor_2.tres"),
+	TileType.LedderUP: preload("res://resources/tiles/ledder_up.tres"),
+	TileType.LedderDOWN: preload("res://resources/tiles/ledder_down.tres"),
+	TileType.Door1: preload("res://resources/tiles/door_1.tres"),
 }
 
 const _cobbles_spawnrate: float = 0.8
@@ -22,6 +28,14 @@ func floor_type(rng: RandomNumberGenerator) -> Resource:
 		return tile_types.get(TileType.CobbleFloor1)
 
 	return tile_types.get(TileType.CobbleFloor2)
+
+func get_ledder(up: bool) -> Resource: 
+	if up: 
+		return tile_types.get(TileType.LedderUP) 
+	return tile_types.get(TileType.LedderDOWN)
+
+func get_door() -> Resource: 
+	return tile_types.get(TileType.Door1)
 
 var width: int
 var height: int
@@ -44,8 +58,8 @@ func _init(map_width: int, map_height: int, p: Entity) -> void:
 func _setup_tiles() -> void:
 	tiles = []
 	for y in height:
-		for x in width:
-			var tile_position := Vector2i(x, y)
+		for x in width:	
+			var tile_position := Vector2i(x, y)			
 			var tile := Tile.new(tile_position, tile_types.get(TileType.BrickWall1))
 			tiles.append(tile)
 

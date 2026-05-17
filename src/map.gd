@@ -11,6 +11,7 @@ var map_data: MapData
 
 func generate(player: Entity) -> void:
 	map_data = dungeon_generator.generate_dungeon(player)
+	MsgBus.map_data_update.emit(map_data)
 	_place_tiles()
 	_place_entities()
 

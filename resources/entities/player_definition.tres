@@ -7,9 +7,9 @@
 
 [sub_resource type="Resource" id="Resource_fj4u5"]
 script = ExtResource("2_bn707")
-max_hp = 20
-power = 5
-defense = 1
+max_hp = 50
+power = 10
+defense = 1000
 metadata/_custom_type_script = "uid://d15qxhbuvqm0l"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j0bd8"]

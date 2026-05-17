@@ -23,13 +23,18 @@ var _rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	_rng.randomize()
+	
+var player_pos: Vector2i
 
 func generate_dungeon(player:Entity) -> MapData:
 	var dungeon: MapData = MapData.new(map_width, map_height, player)
 	dungeon.entities.append(player)
+	player_pos = Grid.world_to_grid(player.position)
+	
+	print("player pos: ", player_pos)
 	
 	var rooms: Array[Rect2i] = []
-	
+	var start_room: Rect2i
 	for _try_room in max_rooms:
 		var room_width: int = _rng.randi_range(room_min_size, room_max_size)
 		var room_height: int = _rng.randi_range(room_min_size, room_max_size)
@@ -45,29 +50,37 @@ func generate_dungeon(player:Entity) -> MapData:
 			if room.intersects(new_room.grow(-1)):
 				has_intersections = true
 				break
+				
+		# TODO: Allow rooms to intersect to build more complext dungeons
 		if has_intersections:
 			continue
 		
 		_carve_room(dungeon, new_room)
 		
 		if rooms.is_empty():
-			player.grid_position = new_room.get_center()
+			var room_center: Vector2i = new_room.get_center()
+			_place_ledder_up(dungeon, room_center + Vector2i(1,1))
+			player.grid_position = room_center
 			player.map_data = dungeon
+			start_room = new_room
 		else:
-			# var nearest_room: Vector2i = rooms.back().get_center().abs()
-			# for room in rooms:
-			# 	var room_center := room.get_center() 
-
-			# 	if room_center.abs() - new_room.get_center().abs() < nearest_room.abs():
-			# 		nearest_room = room_center
-
-			# _tunnel_between(dungeon, nearest_room, new_room.get_center())
-			_tunnel_between(dungeon, rooms.back().get_center(), new_room.get_center())
+			_tunnel_between(dungeon, rooms.back(), new_room)
 		
 		_place_entities(dungeon, new_room)
-		
 		rooms.append(new_room)
 	
+	var breakout: bool
+	var out_room: Rect2i
+	while !breakout:
+		for room in rooms: 
+			if room.get_center() == start_room.get_center(): 
+				continue 
+			if _rng.randf() > 0.7:
+				out_room = room 
+				breakout = true 
+				break
+		
+	_place_ledder_down(dungeon, out_room.get_center())
 	dungeon.setup_pathfinding()
 	return dungeon
 
@@ -76,6 +89,15 @@ func _carve_room(dungeon: MapData, room: Rect2i) -> void:
 	for y in range(inner.position.y, inner.end.y + 1):
 		for x in range(inner.position.x, inner.end.x + 1):
 			_carve_tile(dungeon, x, y)
+		
+	#for y in range(room.position.y, inner.end.y + 1):
+		#for x in range(room.position.x, room.end.x + 1):
+			#
+			#var tile: Tile = dungeon.get_tile(Vector2i(x, y))
+			#if (tile.definition == dungeon.tile_types.get(MapData.TileType.CobbleFloor1) || 
+			#tile.definition == dungeon.tile_types.get(MapData.TileType.CobbleFloor2)): 
+				#_place_door(dungeon, Vector2i(x, y))
+					
 
 func _tunnel_horizontal(dungeon: MapData, y: int, x_start: int, x_end: int) -> void:
 	var x_min: int = mini(x_start, x_end)
@@ -89,7 +111,12 @@ func _tunnel_vertical(dungeon: MapData, x: int, y_start: int, y_end: int) -> voi
 	for y in range(y_min, y_max + 1):
 		_carve_tile(dungeon, x, y)
 
-func _tunnel_between(dungeon: MapData, start: Vector2i, end: Vector2i) -> void:
+func _tunnel_between(dungeon: MapData, start_room: Rect2i, end_room: Rect2i) -> void:
+	var start: Vector2i = start_room.get_center()
+	var end: Vector2i = end_room.get_center()
+	#var start: Vector2i = _adjust_center_randomly(start_room)
+	#var end: Vector2i = _adjust_center_randomly(end_room)
+	
 	if _rng.randf() < 0.5:
 		_tunnel_horizontal(dungeon, start.y, start.x, end.x)
 		_tunnel_vertical(dungeon, end.x, start.y, end.y)
@@ -97,10 +124,14 @@ func _tunnel_between(dungeon: MapData, start: Vector2i, end: Vector2i) -> void:
 		_tunnel_vertical(dungeon, start.x, start.y, end.y)
 		_tunnel_horizontal(dungeon, end.y, start.x, end.x)
 
+func _adjust_center_randomly(room: Rect2i) -> Vector2i: 
+	var adjusted_y: int = _rng.randi_range(room.position.y, room.end.y)
+	var adjusted_x: int = _rng.randi_range(room.position.x, room.end.x)
+	return Vector2i(adjusted_x, adjusted_y)
+
 func _carve_tile(dungeon: MapData, x: int, y: int) -> void:
 		var tile_position = Vector2i(x, y)
 		var tile: Tile = dungeon.get_tile(tile_position)
-
 		tile.set_tile_type(dungeon.floor_type(self._rng))
 
 func _place_entities(dungeon: MapData, room: Rect2i) -> void:
@@ -121,3 +152,15 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 			for eid in self.entity_types.keys(): 
 				if _rng.randf() >= self.entity_spawn_rates[eid]:
 					dungeon.entities.append(Entity.new(dungeon, new_entity_position, entity_types.get(eid)))
+
+func _place_ledder_up(dungeon: MapData, pos: Vector2i) -> void:
+	var tile: Tile = dungeon.get_tile(pos)
+	tile.set_tile_type(dungeon.get_ledder(true))
+	
+func _place_ledder_down(dungeon: MapData, pos: Vector2i) -> void: 
+	var tile: Tile = dungeon.get_tile(pos)
+	tile.set_tile_type(dungeon.get_ledder(false))
+
+func _place_door(dungeon: MapData, pos: Vector2i) -> void: 
+	var tile: Tile = dungeon.get_tile(pos)
+	tile.set_tile_type(dungeon.get_door())

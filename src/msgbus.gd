@@ -3,9 +3,11 @@ extends Node
 
 # System events 
 signal game_pause(state: bool)
+signal zoom(dir: int)
 
 # World events
 signal level_initialized(level: Node)
+signal map_data_update(md: MapData)
 
 # Player events 
 signal player_hp_change(new_hp: int)

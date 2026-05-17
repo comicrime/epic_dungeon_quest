@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c6o0pcobsugkl" path="res://src/handlers/game_over_input_handler.gd" id="4_u5sy4"]
 [ext_resource type="Script" uid="uid://ca1lraar7bvb" path="res://src/map.gd" id="5_gee14"]
 [ext_resource type="Script" uid="uid://bmxacvinesmv0" path="res://src/fov.gd" id="5_iywne"]
+[ext_resource type="Script" uid="uid://c4b0msleiq11q" path="res://src/camera.gd" id="9_0tnpc"]
 
 [node name="Game" type="Control" unique_id=437210718]
 layout_mode = 3
@@ -18,6 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1425447381]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,6 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer" unique_id=1628704341]
+texture_filter = 1
 layout_mode = 2
 size_flags_vertical = 3
 stretch = true
@@ -37,6 +40,8 @@ size = Vector2i(1024, 680)
 render_target_update_mode = 4
 
 [node name="Game" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport" unique_id=1426893471]
+unique_name_in_owner = true
+texture_filter = 1
 script = ExtResource("1_yqjtg")
 
 [node name="InputHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game" unique_id=1465795623]
@@ -65,15 +70,26 @@ entity_types = Dictionary[String, Resource]({
 entity_spawn_rates = Dictionary[String, float]({
 "sewers_rat": 0.8
 })
+items = Array[Resource]([])
+map_width = 100
+map_height = 45
+max_rooms = 30
+room_max_size = 15
+room_min_size = 8
+max_monsters_per_room = 2
 
 [node name="FOV" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map" unique_id=985331953]
 script = ExtResource("5_iywne")
 
 [node name="Tiles" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map" unique_id=1652269484]
+texture_filter = 1
 
 [node name="Items" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map" unique_id=1163096768]
 
 [node name="Entities" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/Map" unique_id=368463037]
+texture_filter = 1
 
 [node name="Camera2D" type="Camera2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game" unique_id=649464467]
 unique_name_in_owner = true
+zoom = Vector2(2, 2)
+script = ExtResource("9_0tnpc")

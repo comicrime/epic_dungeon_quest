@@ -1,7 +1,7 @@
 class_name Grid 
 extends Object
 
-const _DEFAULT_SCALE_FACTOR: int = 3
+const _DEFAULT_SCALE_FACTOR: int = 1
 const DEFAULT_SCALE: Vector2 = Vector2(_DEFAULT_SCALE_FACTOR, _DEFAULT_SCALE_FACTOR)
 const tile_size:Vector2i = Vector2i(16 * _DEFAULT_SCALE_FACTOR, 16 * _DEFAULT_SCALE_FACTOR) 
 
