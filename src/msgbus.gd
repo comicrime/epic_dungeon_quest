@@ -4,6 +4,7 @@ extends Node
 # System events 
 signal game_pause(state: bool)
 signal zoom(dir: int)
+signal game_requested(try_load: bool)
 
 # World events
 signal level_initialized(level: Node)

@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://in4qg5c0lkcw"]
+
+[ext_resource type="Texture2D" uid="uid://dijgx6vecje56" path="res://assets/raw/Pixel fire asset pack v1.2/Pixel Fire Asset Pack Colored/fire asset red/Group 4 - 1/Group 4 - 1.png" id="1_tj8ot"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwdqx"]
+atlas = ExtResource("1_tj8ot")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x84qg"]
+atlas = ExtResource("1_tj8ot")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khsam"]
+atlas = ExtResource("1_tj8ot")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5f06c"]
+atlas = ExtResource("1_tj8ot")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxfdb"]
+atlas = ExtResource("1_tj8ot")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5d7h"]
+atlas = ExtResource("1_tj8ot")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hglah"]
+atlas = ExtResource("1_tj8ot")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rl2g"]
+atlas = ExtResource("1_tj8ot")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mpt7m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwdqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x84qg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khsam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5f06c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxfdb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5d7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hglah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rl2g")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 14.0
+}]
+
+[node name="UIAnimatedFire" type="AnimatedSprite2D" unique_id=525540203]
+sprite_frames = SubResource("SpriteFrames_mpt7m")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.7909729

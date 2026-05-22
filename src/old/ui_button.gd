@@ -1,7 +1,7 @@
 class_name UIButton
 extends Button
 
-@onready var sfx_player = %SFXPlayer
+@onready var sfx_player = %SFX
 
 func _ready():
 	self.pressed.connect(self._on_pressed)

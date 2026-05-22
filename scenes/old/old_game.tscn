@@ -1,16 +1,10 @@
 [gd_scene format=3 uid="uid://37wxu0r7covf"]
 
 [ext_resource type="Script" uid="uid://bkeirdsyouafn" path="res://src/old/game.gd" id="1_xo8fk"]
-[ext_resource type="Script" uid="uid://d3f30dyrsnwym" path="res://src/old/titletext.gd" id="2_g1bh8"]
-[ext_resource type="FontFile" uid="uid://cctihvugpalym" path="res://assets/fonts/ByteBounce.ttf" id="3_pmhqd"]
-[ext_resource type="Script" uid="uid://c4gg4sixiwkua" path="res://src/old/ui_button.gd" id="4_jtkfb"]
+[ext_resource type="PackedScene" uid="uid://ufyihi47qlqw" path="res://scenes/main_menu_ui.tscn" id="2_5xsic"]
 [ext_resource type="AudioStream" uid="uid://xa8afiicvyiq" path="res://assets/sounds/game.mp3" id="5_sisca"]
 [ext_resource type="AudioStream" uid="uid://d3trh2n7qm6oh" path="res://assets/sounds/snd_click.mp3" id="6_8v2ph"]
 [ext_resource type="PackedScene" uid="uid://c8jett8shkc88" path="res://scenes/old/esc_menu.tscn" id="7_0sfvl"]
-
-[sub_resource type="RichTextEffect" id="RichTextEffect_lbhrr"]
-script = ExtResource("2_g1bh8")
-metadata/_custom_type_script = "uid://d3f30dyrsnwym"
 
 [node name="Game" type="Control" unique_id=295432806]
 layout_mode = 3
@@ -21,67 +15,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xo8fk")
 
-[node name="MainMenuUI" type="VBoxContainer" parent="." unique_id=1950593196]
+[node name="MainMenuUI" parent="." unique_id=150713197 instance=ExtResource("2_5xsic")]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -275.0
-offset_top = -200.0
-offset_right = 275.0
-offset_bottom = 200.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Title" type="RichTextLabel" parent="MainMenuUI" unique_id=172077096]
-layout_mode = 2
-bbcode_enabled = true
-text = "[font=res://assets/fonts/ByteBounce.ttf][font_size=59][wave amp=10][customshake grad=3] Epic Dungeon Quest"
-fit_content = true
-tab_size = 0
-horizontal_alignment = 1
-custom_effects = [SubResource("RichTextEffect_lbhrr")]
-
-[node name="HSeparator" type="HSeparator" parent="MainMenuUI" unique_id=1038099959]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MainMenuUI" unique_id=344875955]
-layout_mode = 2
-theme_override_constants/margin_top = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuUI/MarginContainer" unique_id=464586955]
-layout_mode = 2
-theme_override_constants/separation = 7
-
-[node name="New Game" type="Button" parent="MainMenuUI/MarginContainer/VBoxContainer" unique_id=353802636]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_pmhqd")
-theme_override_font_sizes/font_size = 36
-text = "PLAY
-
-"
-script = ExtResource("4_jtkfb")
-
-[node name="Options" type="Button" parent="MainMenuUI/MarginContainer/VBoxContainer" unique_id=1815926755]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_pmhqd")
-theme_override_font_sizes/font_size = 36
-text = "OPTIONS"
-script = ExtResource("4_jtkfb")
-
-[node name="Exit" type="Button" parent="MainMenuUI/MarginContainer/VBoxContainer" unique_id=1233912559]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("3_pmhqd")
-theme_override_font_sizes/font_size = 36
-text = "EXIT
-"
-script = ExtResource("4_jtkfb")
+layout_mode = 0
+anchors_preset = 0
 
 [node name="BGMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=274408836]
 stream = ExtResource("5_sisca")
@@ -95,7 +32,3 @@ stream = ExtResource("6_8v2ph")
 unique_name_in_owner = true
 
 [node name="ESCMenu" parent="PauseLayer" unique_id=480640914 instance=ExtResource("7_0sfvl")]
-
-[connection signal="pressed" from="MainMenuUI/MarginContainer/VBoxContainer/New Game" to="." method="_on_new_game_pressed"]
-[connection signal="pressed" from="MainMenuUI/MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="MainMenuUI/MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
