@@ -34,6 +34,7 @@ func die() -> void:
 		#SignalBus.player_died.emit()
 	else:
 		death_message = "%s is dead!" % entity.get_entity_name()
+		MsgBus.kill_inc.emit(1)
 		#death_message_color = GameColors.ENEMY_DIE
 	
 	#MessageLog.send_message(death_message, death_message_color)

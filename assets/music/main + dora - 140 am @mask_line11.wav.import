@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bmbrbdgxlj8ln"
+path="res://.godot/imported/main + dora - 140 am @mask_line11.wav-c9d2d6ae23afa3e22c236b8709fcd106.sample"
+
+[deps]
+
+source_file="res://assets/music/main + dora - 140 am @mask_line11.wav"
+dest_files=["res://.godot/imported/main + dora - 140 am @mask_line11.wav-c9d2d6ae23afa3e22c236b8709fcd106.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

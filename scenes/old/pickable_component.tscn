@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://b55evxvmtyral"]
-
-[ext_resource type="Script" uid="uid://3j11rrl543xv" path="res://src/old/pickable_component.gd" id="1_r3g6s"]
-
-[node name="PickableComponent" type="Node" unique_id=1296522848]
-script = ExtResource("1_r3g6s")

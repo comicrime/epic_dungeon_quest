@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://d2permyigfkyc"]
 
-[ext_resource type="PackedScene" uid="uid://ufyihi47qlqw" path="res://scenes/main_menu_ui.tscn" id="1_vtaks"]
 [ext_resource type="Script" uid="uid://bc6rmiu2q15h4" path="res://src/game_manager.gd" id="1_yqjtg"]
+[ext_resource type="AudioStream" uid="uid://b2pl7ym36i2xj" path="res://assets/music/sewers_tense.ogg" id="2_lbhrr"]
+[ext_resource type="AudioStream" uid="uid://d3trh2n7qm6oh" path="res://assets/sounds/snd_click.mp3" id="3_iywne"]
+[ext_resource type="Script" uid="uid://blu1f8qnxucah" path="res://src/common_playback.gd" id="4_p57ef"]
 
 [node name="Game" type="Control" unique_id=437210718]
 layout_mode = 3
@@ -12,5 +14,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yqjtg")
 
-[node name="MainMenuUI" parent="." unique_id=150713197 instance=ExtResource("1_vtaks")]
-layout_mode = 1
+[node name="BGMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1449349977]
+unique_name_in_owner = true
+stream = ExtResource("2_lbhrr")
+
+[node name="SFX" type="AudioStreamPlayer" parent="." unique_id=238890728]
+unique_name_in_owner = true
+stream = ExtResource("3_iywne")
+script = ExtResource("4_p57ef")

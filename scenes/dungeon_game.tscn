@@ -10,9 +10,11 @@
 [ext_resource type="Resource" uid="uid://cygm827krfld3" path="res://resources/entities/sewers_rat.tres" id="7_m8suj"]
 [ext_resource type="Script" uid="uid://bmxacvinesmv0" path="res://src/fov.gd" id="8_q0plo"]
 [ext_resource type="Script" uid="uid://c4b0msleiq11q" path="res://src/camera.gd" id="9_5lxt1"]
+[ext_resource type="Resource" uid="uid://b41n4mnln6pf6" path="res://resources/entities/sewers_snake.tres" id="9_buyf4"]
+[ext_resource type="FontFile" uid="uid://cctihvugpalym" path="res://assets/fonts/ByteBounce.ttf" id="11_rc3rg"]
+[ext_resource type="Script" uid="uid://bkylk761wvhf7" path="res://src/kill_counter.gd" id="11_spf7w"]
 
 [node name="VBoxContainer" type="VBoxContainer" unique_id=279346399]
-visible = false
 texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,8 +33,8 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1508721259]
 disable_3d = true
 handle_input_locally = false
-size = Vector2i(2, 2)
-render_target_update_mode = 0
+size = Vector2i(1024, 563)
+render_target_update_mode = 4
 
 [node name="Game" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1473563743]
 unique_name_in_owner = true
@@ -60,10 +62,12 @@ script = ExtResource("5_buyf4")
 
 [node name="DungeonGenerator" parent="SubViewportContainer/SubViewport/Game/Map" unique_id=668080787 instance=ExtResource("6_y0b80")]
 entity_types = Dictionary[String, Resource]({
-"sewers_rat": ExtResource("7_m8suj")
+"sewers_rat": ExtResource("7_m8suj"),
+"sewers_snake": ExtResource("9_buyf4")
 })
 entity_spawn_rates = Dictionary[String, float]({
-"sewers_rat": 0.8
+"sewers_rat": 0.95,
+"sewers_snake": 0.05
 })
 items = Array[Resource]([])
 map_width = 100
@@ -88,3 +92,36 @@ texture_filter = 1
 unique_name_in_owner = true
 zoom = Vector2(2, 2)
 script = ExtResource("9_5lxt1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1631277563]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=140453562]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer" unique_id=1310436968]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1731464193]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer" unique_id=230739058]
+layout_mode = 2
+
+[node name="KillCounter" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1977655100]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_rc3rg")
+theme_override_font_sizes/font_size = 24
+text = "Kills until win:"
+
+[node name="Counter" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1110210934]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_rc3rg")
+theme_override_font_sizes/font_size = 24
+text = "5"
+script = ExtResource("11_spf7w")
+
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer" unique_id=843135999]
+layout_mode = 2

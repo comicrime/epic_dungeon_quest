@@ -1,20 +1,31 @@
 [gd_scene format=3 uid="uid://ufyihi47qlqw"]
 
 [ext_resource type="Script" uid="uid://b23clgbowo02f" path="res://src/main_menu_ui.gd" id="1_qooff"]
-[ext_resource type="Script" uid="uid://d3f30dyrsnwym" path="res://src/old/titletext.gd" id="1_rpghy"]
 [ext_resource type="FontFile" uid="uid://cctihvugpalym" path="res://assets/fonts/ByteBounce.ttf" id="2_towyk"]
-[ext_resource type="Script" uid="uid://c4gg4sixiwkua" path="res://src/old/ui_button.gd" id="3_j5441"]
-[ext_resource type="Script" uid="uid://cfw25scxsrkjk" path="res://src/new_game_button.gd" id="4_mwf8v"]
-[ext_resource type="AudioStream" uid="uid://b2pl7ym36i2xj" path="res://assets/music/sewers_tense.ogg" id="4_vxllw"]
-[ext_resource type="AudioStream" uid="uid://d3trh2n7qm6oh" path="res://assets/sounds/snd_click.mp3" id="5_j5441"]
-[ext_resource type="Script" uid="uid://blu1f8qnxucah" path="res://src/common_playback.gd" id="5_vxllw"]
+[ext_resource type="Script" uid="uid://b5qd3ksblypf6" path="res://src/ui_button.gd" id="3_np0fa"]
 [ext_resource type="PackedScene" uid="uid://in4qg5c0lkcw" path="res://scenes/ui_animated_fire.tscn" id="7_np0fa"]
 
+[sub_resource type="GDScript" id="GDScript_qnnn4"]
+script/source = "@tool
+extends RichTextEffect
+class_name CustomShake
+
+var bbcode = \"customshake\"
+
+func _process_custom_fx(fx: CharFXTransform) -> bool:
+	var angle = deg_to_rad(fx.env.get(\"rot\", 0.0))
+	var char_count = fx.env.get(\"char_count\", 1)
+	var offset: float = fx.relative_index / char_count
+	var desired_angle: float = lerp_angle(-angle, angle, offset)
+	fx.transform = fx.transform.rotated_local(desired_angle)
+	return true
+"
+
 [sub_resource type="RichTextEffect" id="RichTextEffect_lbhrr"]
-script = ExtResource("1_rpghy")
+script = SubResource("GDScript_qnnn4")
 metadata/_custom_type_script = "uid://d3f30dyrsnwym"
 
-[node name="MarginContainer2" type="MarginContainer" unique_id=1176628875]
+[node name="MainMenuUI" type="MarginContainer" unique_id=1176628875]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -24,12 +35,12 @@ theme_override_constants/margin_left = 100
 theme_override_constants/margin_right = 100
 script = ExtResource("1_qooff")
 
-[node name="MainMenuUI" type="VBoxContainer" parent="." unique_id=150713197]
+[node name="Layout" type="VBoxContainer" parent="." unique_id=150713197]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Title" type="RichTextLabel" parent="MainMenuUI" unique_id=1808811506]
+[node name="Title" type="RichTextLabel" parent="Layout" unique_id=1808811506]
 layout_mode = 2
 bbcode_enabled = true
 text = "[font=res://assets/fonts/ByteBounce.ttf][font_size=59][wave amp=10][customshake grad=3] Epic Dungeon Quest"
@@ -38,60 +49,49 @@ tab_size = 0
 horizontal_alignment = 1
 custom_effects = [SubResource("RichTextEffect_lbhrr")]
 
-[node name="HSeparator" type="HSeparator" parent="MainMenuUI" unique_id=1987838953]
+[node name="HSeparator" type="HSeparator" parent="Layout" unique_id=1987838953]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MainMenuUI" unique_id=969240405]
+[node name="MarginContainer" type="MarginContainer" parent="Layout" unique_id=969240405]
 layout_mode = 2
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuUI/MarginContainer" unique_id=952750833]
+[node name="VBoxContainer" type="VBoxContainer" parent="Layout/MarginContainer" unique_id=952750833]
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="New Game" type="Button" parent="MainMenuUI/MarginContainer/VBoxContainer" unique_id=1526887145]
+[node name="New Game" type="Button" parent="Layout/MarginContainer/VBoxContainer" unique_id=1526887145]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_towyk")
 theme_override_font_sizes/font_size = 36
 text = "PLAY
 
 "
-script = ExtResource("4_mwf8v")
+script = ExtResource("3_np0fa")
 
-[node name="Options" type="Button" parent="MainMenuUI/MarginContainer/VBoxContainer" unique_id=1965961538]
+[node name="Options" type="Button" parent="Layout/MarginContainer/VBoxContainer" unique_id=1965961538]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_towyk")
 theme_override_font_sizes/font_size = 36
 text = "OPTIONS"
-script = ExtResource("3_j5441")
+script = ExtResource("3_np0fa")
 
-[node name="Exit" type="Button" parent="MainMenuUI/MarginContainer/VBoxContainer" unique_id=1999515009]
+[node name="Exit" type="Button" parent="Layout/MarginContainer/VBoxContainer" unique_id=1999515009]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_towyk")
 theme_override_font_sizes/font_size = 36
 text = "EXIT
 "
-script = ExtResource("3_j5441")
+script = ExtResource("3_np0fa")
 
-[node name="BGMusicPlayer" type="AudioStreamPlayer" parent="MainMenuUI" unique_id=1089314945]
-stream = ExtResource("4_vxllw")
-autoplay = true
-
-[node name="SFX" type="AudioStreamPlayer" parent="MainMenuUI" unique_id=932223413]
-unique_name_in_owner = true
-stream = ExtResource("5_j5441")
-script = ExtResource("5_vxllw")
-
-[node name="UIAnimatedFile" parent="MainMenuUI" unique_id=525540203 instance=ExtResource("7_np0fa")]
+[node name="UIAnimatedFile" parent="Layout" unique_id=525540203 instance=ExtResource("7_np0fa")]
 position = Vector2(64, 195)
 scale = Vector2(4, 4)
 
-[node name="UIAnimatedFile2" parent="MainMenuUI" unique_id=173960626 instance=ExtResource("7_np0fa")]
+[node name="UIAnimatedFile2" parent="Layout" unique_id=173960626 instance=ExtResource("7_np0fa")]
 position = Vector2(760, 195)
 scale = Vector2(4, 4)
 
-[connection signal="pressed" from="MainMenuUI/MarginContainer/VBoxContainer/New Game" to="MainMenuUI/SFX" method="_on_new_game_pressed"]
-[connection signal="pressed" from="MainMenuUI/MarginContainer/VBoxContainer/Options" to="MainMenuUI/SFX" method="_on_options_pressed"]
-[connection signal="pressed" from="MainMenuUI/MarginContainer/VBoxContainer/Exit" to="MainMenuUI/SFX" method="_on_exit_pressed"]
+[connection signal="pressed" from="Layout/MarginContainer/VBoxContainer/New Game" to="." method="_on_new_game_pressed"]

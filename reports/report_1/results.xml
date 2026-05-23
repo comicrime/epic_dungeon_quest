@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<testsuites id="2026-05-22" name="report_1" tests="1" failures="0" skipped="0" flaky="0" time="0.000">
-	<testsuite id="0" name="test_hello" package="test/unit" timestamp="2026-05-22T19:47:00" hostname="localhost" tests="1" failures="0" errors="0" skipped="0" flaky="0" time="0.043">
-		<testcase name="test_hello" classname="test_hello" time="0.020">
-		</testcase>
-	</testsuite>
-</testsuites>

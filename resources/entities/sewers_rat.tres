@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://w7gdnq1qlo4h" path="res://resources/default_death_texture.tres" id="1_03e3r"]
 [ext_resource type="Script" uid="uid://c5f7p2bhs1yre" path="res://src/definitions/entity_def.gd" id="1_h0fqj"]
 [ext_resource type="Script" uid="uid://d15qxhbuvqm0l" path="res://src/definitions/fighter_component_def.gd" id="2_2ev0t"]
-[ext_resource type="Texture2D" uid="uid://dmwyct7y10fbs" path="res://assets/raw/1bitpack_kenney_1.2/Tilesheet/monochrome-transparent.png" id="2_j1yk8"]
+[ext_resource type="Texture2D" uid="uid://2jxlqbtnfvhm" path="res://assets/raw/1bitpack_kenney_1.2/Tilesheet/monochrome.png" id="4_03e3r"]
 
 [sub_resource type="Resource" id="Resource_gd7sc"]
 script = ExtResource("2_2ev0t")
@@ -12,13 +12,13 @@ power = 1
 metadata/_custom_type_script = "uid://d15qxhbuvqm0l"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vt1r2"]
-atlas = ExtResource("2_j1yk8")
+atlas = ExtResource("4_03e3r")
 region = Rect2(527, 136, 16, 16)
 
 [resource]
 script = ExtResource("1_h0fqj")
 name = "Sewers Rat"
 texture = SubResource("AtlasTexture_vt1r2")
-color = Color(0.646647, 0.10133473, 0.38012597, 1)
+color = Color(0.47370702, 0.62654227, 0.5304839, 1)
 fighter_definition = SubResource("Resource_gd7sc")
 ai_type = 1

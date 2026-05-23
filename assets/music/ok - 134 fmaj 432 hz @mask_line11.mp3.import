@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b063rpcqx77gg"
+path="res://.godot/imported/ok - 134 fmaj 432 hz @mask_line11.mp3-81254576708bb8a2e5cd5ee8c95a2bbe.mp3str"
+
+[deps]
+
+source_file="res://assets/music/ok - 134 fmaj 432 hz @mask_line11.mp3"
+dest_files=["res://.godot/imported/ok - 134 fmaj 432 hz @mask_line11.mp3-81254576708bb8a2e5cd5ee8c95a2bbe.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

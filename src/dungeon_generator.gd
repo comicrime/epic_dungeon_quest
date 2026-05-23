@@ -23,6 +23,8 @@ var _rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
 	_rng.randomize()
+	print("entity_types: ", entity_types)
+	print("entity_spawn_rates: ", entity_spawn_rates)
 	
 var player_pos: Vector2i
 
@@ -147,10 +149,10 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 			if entity.grid_position == new_entity_position:
 				can_place = false
 				break
-		
+		print("[_place_entities] can_place: ", can_place)
 		if can_place:
 			for eid in self.entity_types.keys(): 
-				if _rng.randf() >= self.entity_spawn_rates[eid]:
+				if _rng.randf() <= self.entity_spawn_rates[eid]:
 					dungeon.entities.append(Entity.new(dungeon, new_entity_position, entity_types.get(eid)))
 
 func _place_ledder_up(dungeon: MapData, pos: Vector2i) -> void:

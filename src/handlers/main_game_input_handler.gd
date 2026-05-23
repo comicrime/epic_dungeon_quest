@@ -25,14 +25,14 @@ func get_action(player: Entity) -> Action:
 		MsgBus.zoom.emit(-1)
 	
 	if Input.is_action_just_pressed("left_click"): 
-		print("left click")
+		#print("left click")
 		
 		var mouse_pos: Vector2 = game.get_global_mouse_position()
-		print("mouse pos: ", mouse_pos)
+		#print("mouse pos: ", mouse_pos)
 		
 		var grid_pos := Grid.world_to_grid(mouse_pos)
 		var tile = GlobalManager.map_data.get_tile(grid_pos)
-		print("tile pos: ", tile.position)
+		#print("tile pos: ", tile.position)
 
 		mouse_pos = grid_pos
 	

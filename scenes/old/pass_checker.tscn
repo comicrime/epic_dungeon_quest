@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://c2l5wdsoggv1f"]
-
-[ext_resource type="Script" uid="uid://dh6kdx77y4qfy" path="res://src/old/pass_checker.gd" id="1_03uxw"]
-
-[node name="PassChecker" type="Node" unique_id=534678153]
-script = ExtResource("1_03uxw")

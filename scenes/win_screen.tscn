@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://icwy1xw5k437"]
+
+[ext_resource type="FontFile" uid="uid://cctihvugpalym" path="res://assets/fonts/ByteBounce.ttf" id="1_e41g7"]
+[ext_resource type="Script" uid="uid://d1vguuturbr12" path="res://src/play_again.gd" id="2_erk2x"]
+
+[sub_resource type="GDScript" id="GDScript_qnnn4"]
+script/source = "@tool
+extends RichTextEffect
+class_name CustomShake
+
+var bbcode = \"customshake\"
+
+func _process_custom_fx(fx: CharFXTransform) -> bool:
+	var angle = deg_to_rad(fx.env.get(\"rot\", 0.0))
+	var char_count = fx.env.get(\"char_count\", 1)
+	var offset: float = fx.relative_index / char_count
+	var desired_angle: float = lerp_angle(-angle, angle, offset)
+	fx.transform = fx.transform.rotated_local(desired_angle)
+	return true
+"
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_lbhrr"]
+script = SubResource("GDScript_qnnn4")
+metadata/_custom_type_script = "uid://d3f30dyrsnwym"
+
+[node name="WinScreen" type="Control" unique_id=1305335389]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Layout" type="VBoxContainer" parent="." unique_id=578904140]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="Layout" unique_id=1242436813]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font=res://assets/fonts/ByteBounce.ttf][font_size=59][wave amp=10][customshake grad=3] You cleared the Dungeon!"
+fit_content = true
+tab_size = 0
+horizontal_alignment = 1
+custom_effects = [SubResource("RichTextEffect_lbhrr")]
+
+[node name="HSeparator" type="HSeparator" parent="Layout" unique_id=1989379239]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Layout" unique_id=114975895]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Layout/MarginContainer" unique_id=1189620922]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="New Game" type="Button" parent="Layout/MarginContainer/VBoxContainer" unique_id=1320575467]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_e41g7")
+theme_override_font_sizes/font_size = 36
+text = "PLAY AGAIN
+ 
+"
+script = ExtResource("2_erk2x")

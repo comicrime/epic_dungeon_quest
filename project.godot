@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 MsgBus="*uid://c0s8vwqrnjspe"
-PlayerState="*uid://cktk448fatiq0"
 GlobalManager="*uid://7olmxflg5mdd"
 
 [display]
