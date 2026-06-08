@@ -1,0 +1,18 @@
+[gd_resource type="StyleBoxTexture" format=3 uid="uid://c7cxjkoqn0vin"]
+
+[ext_resource type="Texture2D" uid="uid://2jxlqbtnfvhm" path="res://assets/raw/1bitpack_kenney_1.2/Tilesheet/monochrome.png" id="1_eahkd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7004u"]
+atlas = ExtResource("1_eahkd")
+region = Rect2(816, 255, 16, 16)
+
+[resource]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = SubResource("AtlasTexture_7004u")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0

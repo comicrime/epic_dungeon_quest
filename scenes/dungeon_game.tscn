@@ -13,6 +13,8 @@
 [ext_resource type="Resource" uid="uid://b41n4mnln6pf6" path="res://resources/entities/sewers_snake.tres" id="9_buyf4"]
 [ext_resource type="FontFile" uid="uid://cctihvugpalym" path="res://assets/fonts/ByteBounce.ttf" id="11_rc3rg"]
 [ext_resource type="Script" uid="uid://bkylk761wvhf7" path="res://src/kill_counter.gd" id="11_spf7w"]
+[ext_resource type="StyleBox" uid="uid://c7cxjkoqn0vin" path="res://resources/UITexture.tres" id="14_m8suj"]
+[ext_resource type="Script" uid="uid://bcs3dpo4vnfp5" path="res://src/log.gd" id="14_y0b80"]
 
 [node name="VBoxContainer" type="VBoxContainer" unique_id=279346399]
 texture_filter = 1
@@ -33,7 +35,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1508721259]
 disable_3d = true
 handle_input_locally = false
-size = Vector2i(1024, 563)
+size = Vector2i(1024, 506)
 render_target_update_mode = 4
 
 [node name="Game" type="Node2D" parent="SubViewportContainer/SubViewport" unique_id=1473563743]
@@ -93,35 +95,53 @@ unique_name_in_owner = true
 zoom = Vector2(2, 2)
 script = ExtResource("9_5lxt1")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1631277563]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=219387027]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 19
+theme_override_constants/margin_bottom = 20
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=140453562]
+[node name="BottomUI" type="HBoxContainer" parent="MarginContainer" unique_id=1631277563]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="GameStatePannel" type="PanelContainer" parent="MarginContainer/BottomUI" unique_id=140453562]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("14_m8suj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/BottomUI/GameStatePannel" unique_id=1310436968]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer" unique_id=1310436968]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/BottomUI/GameStatePannel/VBoxContainer" unique_id=1731464193]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1731464193]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/BottomUI/GameStatePannel/VBoxContainer/PanelContainer" unique_id=230739058]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer" unique_id=230739058]
-layout_mode = 2
-
-[node name="KillCounter" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1977655100]
+[node name="KillCounter" type="Label" parent="MarginContainer/BottomUI/GameStatePannel/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1977655100]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("11_rc3rg")
 theme_override_font_sizes/font_size = 24
 text = "Kills until win:"
 
-[node name="Counter" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1110210934]
+[node name="Counter" type="Label" parent="MarginContainer/BottomUI/GameStatePannel/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1110210934]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("11_rc3rg")
 theme_override_font_sizes/font_size = 24
 text = "5"
 script = ExtResource("11_spf7w")
 
-[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer" unique_id=843135999]
+[node name="LogPannel" type="PanelContainer" parent="MarginContainer/BottomUI" unique_id=1584300173]
+custom_minimum_size = Vector2(800, 150)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("14_m8suj")
+
+[node name="MessageLog" type="ScrollContainer" parent="MarginContainer/BottomUI/LogPannel" unique_id=1296325068]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("14_y0b80")
+
+[node name="MessageList" type="VBoxContainer" parent="MarginContainer/BottomUI/LogPannel/MessageLog" unique_id=337437902]
+unique_name_in_owner = true
 layout_mode = 2

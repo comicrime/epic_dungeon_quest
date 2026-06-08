@@ -14,3 +14,6 @@ func get_blocking_entity_at_destination() -> Entity:
 
 func get_target_actor() -> Entity:
 	return self.get_map_data().get_actor_at_location(self.get_destination())
+
+func get_target_tile() -> Tile: 
+	return self.get_map_data().get_tile_at_location(self.get_destination())

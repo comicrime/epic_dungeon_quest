@@ -35,9 +35,9 @@ func die() -> void:
 	else:
 		death_message = "%s is dead!" % entity.get_entity_name()
 		MsgBus.kill_inc.emit(1)
-		#death_message_color = GameColors.ENEMY_DIE
+		death_message_color = GameColors.ENEMY_DIE
 	
-	#MessageLog.send_message(death_message, death_message_color)
+	MessageLog.send_message(death_message, death_message_color)
 	entity.texture = death_texture
 	entity.modulate = death_color
 	entity.ai_component.queue_free()

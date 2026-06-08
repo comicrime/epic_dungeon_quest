@@ -23,6 +23,8 @@ const tile_types: Dictionary[TileType, Resource] = {
 const _cobbles_spawnrate: float = 0.8
 const entity_pathfinding_weight: float = 10.0
 
+var level:int
+
 func floor_type(rng: RandomNumberGenerator) -> Resource:
 	if rng.randf() <= _cobbles_spawnrate:
 		return tile_types.get(TileType.CobbleFloor1)
@@ -46,12 +48,12 @@ var player: Entity
 
 var pathfinder: AStarGrid2D
 
-func _init(map_width: int, map_height: int, p: Entity) -> void:
+func _init(level:int, map_width: int, map_height: int, p: Entity) -> void:
 	width = map_width
 	height = map_height
 	
 	self.player = p
-
+	self.level = level
 	entities = []
 	_setup_tiles()
 
@@ -122,10 +124,19 @@ func get_actors() -> Array[Entity]:
 		if entity.is_alive():
 			actors.append(entity) 
 	return actors
+	
+func get_tiles() -> Array[Tile]: 
+	return self.tiles
 
 func get_actor_at_location(location: Vector2i) -> Entity:
 	for actor in self.get_actors():
 		if actor.grid_position == location:
 			return actor 
 		
+	return null
+
+func get_tile_at_location(location: Vector2i) -> Tile:
+	for tile in self.get_tiles():
+		if Grid.world_to_grid(tile.global_position) == location:
+			return tile 
 	return null

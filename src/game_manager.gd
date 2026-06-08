@@ -5,16 +5,17 @@ const main_menu_scene: PackedScene = preload("res://scenes/main_menu_ui.tscn")
 const win_screen: PackedScene = preload("res://scenes/win_screen.tscn")
 
 const main_menu_music = preload("res://assets/music/sewers_tense.ogg")
-const in_game_music = preload("res://assets/music/game.mp3")
+const in_game_music = preload("res://assets/music/game.mp3") 
 const win_music = preload("res://assets/music/main + dora - 140 am @mask_line11.wav")
 
+@onready var bg_music_player = %BGMusicPlayer
 var current_child: Node
 
 func _ready():
 	MsgBus.game_win.connect(_on_win)
-	%BGMusicPlayer.stop()
-	%BGMusicPlayer.stream = main_menu_music
-	%BGMusicPlayer.play()
+	bg_music_player.stop()
+	bg_music_player.stream = main_menu_music
+	bg_music_player.play()
 	load_main_menu()
 
 func load_main_menu() -> void:
@@ -31,13 +32,15 @@ func switch_to_scene(scene: PackedScene) -> Node:
 	return current_child
 
 func _on_game_requested(try_load: bool) -> void:
-	%BGMusicPlayer.stop()
-	%BGMusicPlayer.stream = in_game_music
-	%BGMusicPlayer.play()
+	bg_music_player.stop()
+	bg_music_player.stream = in_game_music
+	
+	bg_music_player.play()
 	switch_to_scene(game_scene)
+	MsgBus.sound_event.emit.call_deferred("dwell")
 
 func _on_win() -> void: 
-	%BGMusicPlayer.stop()
+	bg_music_player.stop()
 	%BGMusicPlayer.stream = win_music
 	%BGMusicPlayer.play()
 	switch_to_scene(win_screen)

@@ -32,3 +32,18 @@ func is_walkable() -> bool:
 
 func is_transparent() -> bool:
 	return definition.is_transparent
+
+func to_json() -> Dictionary: 
+	return {
+		"def": self.definition.resource_path,
+		"grid": {
+			"visible":visible,
+			"centered":centered, 
+			"position": position,
+			"scale":scale,
+			"modulate": modulate,
+		}
+	}
+
+func is_interactable() -> bool: 
+	return definition.is_interactable

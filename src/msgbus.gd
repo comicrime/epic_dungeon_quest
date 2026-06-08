@@ -5,7 +5,8 @@ extends Node
 signal game_pause(state: bool)
 signal zoom(dir: int)
 signal game_requested(try_load: bool)
-signal ui_press(ui_id: String)
+signal sound_event(ui_id: String)
+signal message_sent(text: String, color: Color)
 
 # World events
 signal level_initialized(level: Node)

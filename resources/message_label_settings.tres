@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://cgrooqeo5oeyq"]
+
+[ext_resource type="FontFile" uid="uid://cctihvugpalym" path="res://assets/fonts/ByteBounce.ttf" id="1_5nwyt"]
+
+[resource]
+font = ExtResource("1_5nwyt")
+font_size = 24
