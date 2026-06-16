@@ -14,4 +14,4 @@ func _on_hp_change(hp: int, max_hp: int) -> void:
 	var progress: float = hp as float / (max_hp as float / 100) 
 	print("progress: ", progress)
 	
-	self.value = progress * 100
+	self.value = progress

@@ -9,6 +9,7 @@ enum TileType {
 	LedderUP,
 	LedderDOWN,
 	Door1,
+	Chasm
 }
 
 const tile_types: Dictionary[TileType, Resource] = {
@@ -18,14 +19,18 @@ const tile_types: Dictionary[TileType, Resource] = {
 	TileType.LedderUP: preload("res://resources/tiles/ledder_up.tres"),
 	TileType.LedderDOWN: preload("res://resources/tiles/ledder_down.tres"),
 	TileType.Door1: preload("res://resources/tiles/door_1.tres"),
+	TileType.Chasm: preload("res://resources/tiles/chasm.tres")
 }
 
 const _cobbles_spawnrate: float = 0.8
 const entity_pathfinding_weight: float = 10.0
+const _chasm_spawnrate: float = 0.02
 
 var level:int
 
 func floor_type(rng: RandomNumberGenerator) -> Resource:
+	if rng.randf() <= _chasm_spawnrate:
+		return tile_types.get(TileType.Chasm)
 	if rng.randf() <= _cobbles_spawnrate:
 		return tile_types.get(TileType.CobbleFloor1)
 

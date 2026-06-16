@@ -19,6 +19,9 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m8suj"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0plo"]
+bg_color = Color(0.4275763, 0.57907706, 0.24518526, 1)
+
 [node name="VBoxContainer" type="VBoxContainer" unique_id=279346399]
 texture_filter = 1
 anchors_preset = 15
@@ -120,6 +123,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("11_rc3rg")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/background = SubResource("StyleBoxEmpty_m8suj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_q0plo")
 rounded = true
 script = ExtResource("14_q0plo")
 
@@ -137,9 +141,10 @@ text = "Kills until win:"
 
 [node name="Counter" type="Label" parent="MarginContainer/BottomUI/GameStatePannel/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1110210934]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.6839176, 0.21004629, 0.15334481, 1)
 theme_override_fonts/font = ExtResource("11_rc3rg")
 theme_override_font_sizes/font_size = 24
-text = "5"
+text = "10"
 script = ExtResource("11_spf7w")
 
 [node name="LogPannel" type="PanelContainer" parent="MarginContainer/BottomUI" unique_id=1584300173]
