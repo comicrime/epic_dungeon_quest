@@ -3,7 +3,7 @@ extends Node
 const game_scene: PackedScene = preload("res://scenes/dungeon_game.tscn")
 const main_menu_scene: PackedScene = preload("res://scenes/main_menu_ui.tscn")
 const win_screen: PackedScene = preload("res://scenes/win_screen.tscn")
-
+const options_menu: PackedScene = preload("res://scenes/options_menu.tscn")
 const main_menu_music = preload("res://assets/music/sewers_tense.ogg")
 const in_game_music = preload("res://assets/music/game.mp3") 
 const win_music = preload("res://assets/music/main + dora - 140 am @mask_line11.wav")
@@ -13,6 +13,10 @@ var current_child: Node
 
 func _ready():
 	MsgBus.game_win.connect(_on_win)
+	MsgBus.game_requested.connect(_on_game_requested)
+	MsgBus.main_menu_requested.connect(_on_main_menu_requested)
+	MsgBus.options_requested.connect(_on_options_requested)
+	
 	bg_music_player.stop()
 	bg_music_player.stream = main_menu_music
 	bg_music_player.play()
@@ -20,7 +24,6 @@ func _ready():
 
 func load_main_menu() -> void:
 	switch_to_scene(main_menu_scene)
-	MsgBus.game_requested.connect(_on_game_requested)
 
 func switch_to_scene(scene: PackedScene) -> Node:
 	if current_child != null:
@@ -31,13 +34,19 @@ func switch_to_scene(scene: PackedScene) -> Node:
 	add_child(current_child)
 	return current_child
 
-func _on_game_requested(try_load: bool) -> void:
+func _on_game_requested(_try_load: bool) -> void:
 	bg_music_player.stop()
 	bg_music_player.stream = in_game_music
 	
 	bg_music_player.play()
 	switch_to_scene(game_scene)
 	MsgBus.sound_event.emit.call_deferred("dwell")
+
+func _on_main_menu_requested(_try_load: bool) -> void:
+	load_main_menu()
+
+func _on_options_requested(_try_load: bool) -> void:
+	switch_to_scene(options_menu)
 
 func _on_win() -> void: 
 	bg_music_player.stop()

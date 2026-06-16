@@ -1,12 +1,14 @@
 class_name FighterComponent extends Component 
-
-signal hp_changed(hp, max_hp)
+#
+#signal hp_changed(hp, max_hp)
 
 var max_hp: int 
 var hp: int: 
 	set(value):
 		hp = clampi(value, 0, max_hp)
-		hp_changed.emit(hp, max_hp)
+		#hp_changed.emit(hp, max_hp)
+		if entity and entity.is_player:
+			MsgBus.player_hp_change.emit(hp, max_hp)
 		if hp <= 0:
 			self.die()
 
@@ -30,8 +32,8 @@ func die() -> void:
 
 	if self.get_map_data().player == entity:
 		death_message = "YOU DIED"
-		#death_message_color = GameColors.PLAYER_DIE
-		#SignalBus.player_died.emit()
+		death_message_color = GameColors.PLAYER_DIE
+		MsgBus.player_died.emit()
 	else:
 		death_message = "%s is dead!" % entity.get_entity_name()
 		MsgBus.kill_inc.emit(1)

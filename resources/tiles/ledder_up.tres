@@ -12,3 +12,4 @@ script = ExtResource("1_56do7")
 texture = SubResource("AtlasTexture_6kvmy")
 color_lit = Color(0.82606, 0.82606006, 0.82606, 1)
 color_dark = Color(0.46359587, 0.58786756, 0.6625976, 1)
+type = "LEDDER_UP"

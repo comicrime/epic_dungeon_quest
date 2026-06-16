@@ -11,3 +11,8 @@ func perform() -> void:
 		return 
 
 	entity.move(offset)
+		
+	if entity.is_player: 
+		if destination_tile.definition.type == "LEDDER_DOWN": 
+			print("dwell!")
+			MsgBus.dwell.emit(entity)

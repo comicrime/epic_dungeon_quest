@@ -9,11 +9,19 @@ var map_data: MapData
 
 @export var fov_radius: int = 8
 
+func _ready(): 
+	MsgBus.dwell.connect(_on_dwell)
+
 func generate(player: Entity) -> void:
+	MsgBus.sound_event.emit("dwell")
+	clear_dungeon()
 	map_data = dungeon_generator.generate_dungeon(player)
 	MsgBus.map_data_update.emit(map_data)
 	_place_tiles()
 	_place_entities()
+
+func _on_dwell(player: Entity) -> void: 
+	self.generate(player)
 
 func update_fov(player_position: Vector2i) -> void:
 	self.field_of_view.update_fov(self.map_data, player_position, self.fov_radius)
@@ -28,3 +36,21 @@ func _place_tiles() -> void:
 func _place_entities() -> void:
 	for entity in map_data.entities:
 		entities.add_child(entity)
+
+func clear_dungeon() -> void: 
+	map_data = null
+	for e: Entity in entities.get_children():
+		if e.is_player: 
+			continue
+		e.queue_free()
+	for t in tiles.get_children():
+		t.queue_free()
+	
+	
+	
+	
+	
+	
+	
+	
+	

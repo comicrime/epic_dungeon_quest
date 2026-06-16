@@ -19,6 +19,8 @@ const tile_size = 16
 
 func _ready() -> void:
 	player = Entity.new(null, Vector2i.ZERO, player_definition)
+	player.is_player = true
+	MsgBus.player_hp_change.emit(player.fighter_component.hp, player.fighter_component.max_hp)
 	player_created.emit(player)
 	
 	remove_child(camera)
@@ -38,7 +40,6 @@ func _physics_process(_delta: float) -> void:
 		action.perform()
 		_handle_enemy_turns()
 		map.update_fov(player.grid_position)
-
 
 func _handle_enemy_turns() -> void:
 	for entity in get_map_data().entities:

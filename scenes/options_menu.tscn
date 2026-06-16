@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://bwpnapkaqrhs2"]
+
+[ext_resource type="Script" uid="uid://dtqmnp1v435y0" path="res://src/options_menu.gd" id="1_hm4m4"]
+[ext_resource type="FontFile" uid="uid://cctihvugpalym" path="res://assets/fonts/ByteBounce.ttf" id="1_ijpji"]
+
+[sub_resource type="GDScript" id="GDScript_qnnn4"]
+script/source = "@tool
+extends RichTextEffect
+class_name CustomShake
+
+var bbcode = \"customshake\"
+
+func _process_custom_fx(fx: CharFXTransform) -> bool:
+	var angle = deg_to_rad(fx.env.get(\"rot\", 0.0))
+	var char_count = fx.env.get(\"char_count\", 1)
+	var offset: float = fx.relative_index / char_count
+	var desired_angle: float = lerp_angle(-angle, angle, offset)
+	fx.transform = fx.transform.rotated_local(desired_angle)
+	return true
+"
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_lbhrr"]
+script = SubResource("GDScript_qnnn4")
+metadata/_custom_type_script = "uid://d3f30dyrsnwym"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ijpji"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hm4m4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfjc7"]
+
+[node name="OptionsMenu" type="Control" unique_id=2104789145]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hm4m4")
+
+[node name="Layout" type="VBoxContainer" parent="." unique_id=220250662]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="Layout" unique_id=556251214]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font=res://assets/fonts/ByteBounce.ttf][font_size=59][wave amp=10][customshake grad=3] Options"
+fit_content = true
+tab_size = 0
+horizontal_alignment = 1
+custom_effects = [SubResource("RichTextEffect_lbhrr")]
+
+[node name="HSeparator" type="HSeparator" parent="Layout" unique_id=280791009]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Layout" unique_id=840082745]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Layout/MarginContainer" unique_id=6470624]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Layout/MarginContainer/VBoxContainer" unique_id=1591115828]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Panel" type="PanelContainer" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer" unique_id=18931002]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ijpji")
+
+[node name="RichTextLabel" type="Label" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer/Panel" unique_id=359164010]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ijpji")
+theme_override_font_sizes/font_size = 36
+text = "Volume:"
+
+[node name="Low" type="Button" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1882194715]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ijpji")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hm4m4")
+text = "<"
+
+[node name="PanelContainer" type="PanelContainer" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer" unique_id=163014916]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+
+[node name="VolumeBar" type="ProgressBar" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=915006042]
+unique_name_in_owner = true
+layout_mode = 2
+step = 5.0
+value = 100.0
+rounded = true
+
+[node name="Up" type="Button" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer" unique_id=620827256]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ijpji")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lfjc7")
+text = ">"
+
+[connection signal="pressed" from="Layout/MarginContainer/VBoxContainer/HBoxContainer/Low" to="." method="_on_low_pressed"]
+[connection signal="pressed" from="Layout/MarginContainer/VBoxContainer/HBoxContainer/Up" to="." method="_on_up_pressed"]

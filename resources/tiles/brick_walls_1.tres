@@ -14,3 +14,4 @@ color_lit = Color(0.4200054, 0.44292596, 0.48433495, 1)
 color_dark = Color(0.25899887, 0.27859735, 0.37668842, 1)
 is_walkable = false
 is_transparent = false
+type = "WALL"

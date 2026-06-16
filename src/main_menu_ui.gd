@@ -3,3 +3,11 @@ extends MarginContainer
 
 func _on_new_game_pressed():
 	MsgBus.game_requested.emit(true)
+
+
+func _on_options_pressed():
+	MsgBus.options_requested.emit(true)
+
+
+func _on_exit_pressed():
+	get_tree().quit()

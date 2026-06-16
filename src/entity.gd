@@ -1,5 +1,7 @@
 class_name Entity extends Sprite2D
 
+var is_player: bool
+
 enum AIType {
 	NONE, 
 	HOSTILE

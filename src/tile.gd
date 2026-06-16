@@ -1,6 +1,12 @@
 class_name Tile extends Sprite2D 
 
 var definition: TileDefinition
+enum TileType {
+	WALKABLE_TILE,
+	BLOCKING_TILE,
+	STAIRS_UP, 
+	STAIRS_DOWN
+}
 
 var is_explored: bool = false:
 	set(value):

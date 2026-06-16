@@ -8,8 +8,8 @@ class_name DungeonGenerator extends Node
 @export var items: Array[Resource]
 
 @export_category("Map Dimensions")
-@export var map_width: int = 100
-@export var map_height: int = 45
+@export var map_width: int = 50
+@export var map_height: int = 20
 
 @export_category("Rooms RNG")
 @export var max_rooms: int = 30
@@ -29,6 +29,7 @@ func _ready() -> void:
 var player_pos: Vector2i
 
 func generate_dungeon(player:Entity) -> MapData:
+	player.position = Vector2(0,0)
 	var dungeon: MapData = MapData.new(1, map_width, map_height, player)
 	dungeon.entities.append(player)
 	player_pos = Grid.world_to_grid(player.position)

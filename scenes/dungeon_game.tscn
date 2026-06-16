@@ -14,7 +14,10 @@
 [ext_resource type="FontFile" uid="uid://cctihvugpalym" path="res://assets/fonts/ByteBounce.ttf" id="11_rc3rg"]
 [ext_resource type="Script" uid="uid://bkylk761wvhf7" path="res://src/kill_counter.gd" id="11_spf7w"]
 [ext_resource type="StyleBox" uid="uid://c7cxjkoqn0vin" path="res://resources/UITexture.tres" id="14_m8suj"]
+[ext_resource type="Script" uid="uid://wnmtoysoefhg" path="res://src/hp_bar.gd" id="14_q0plo"]
 [ext_resource type="Script" uid="uid://bcs3dpo4vnfp5" path="res://src/log.gd" id="14_y0b80"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m8suj"]
 
 [node name="VBoxContainer" type="VBoxContainer" unique_id=279346399]
 texture_filter = 1
@@ -72,8 +75,8 @@ entity_spawn_rates = Dictionary[String, float]({
 "sewers_snake": 0.05
 })
 items = Array[Resource]([])
-map_width = 100
-map_height = 45
+map_width = 50
+map_height = 20
 max_rooms = 30
 room_max_size = 15
 room_min_size = 8
@@ -111,6 +114,14 @@ theme_override_styles/panel = ExtResource("14_m8suj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/BottomUI/GameStatePannel" unique_id=1310436968]
 layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/BottomUI/GameStatePannel/VBoxContainer" unique_id=205790467]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_rc3rg")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxEmpty_m8suj")
+rounded = true
+script = ExtResource("14_q0plo")
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/BottomUI/GameStatePannel/VBoxContainer" unique_id=1731464193]
 layout_mode = 2

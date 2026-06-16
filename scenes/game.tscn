@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bc6rmiu2q15h4" path="res://src/game_manager.gd" id="1_yqjtg"]
 [ext_resource type="AudioStream" uid="uid://b2pl7ym36i2xj" path="res://assets/music/sewers_tense.ogg" id="2_lbhrr"]
 [ext_resource type="AudioStream" uid="uid://d3trh2n7qm6oh" path="res://assets/sounds/snd_click.mp3" id="3_iywne"]
+[ext_resource type="Script" uid="uid://br73spi3xkcbt" path="res://src/bg_music_player.gd" id="3_p57ef"]
 [ext_resource type="Script" uid="uid://blu1f8qnxucah" path="res://src/common_playback.gd" id="4_p57ef"]
 
 [node name="Game" type="Control" unique_id=437210718]
@@ -17,6 +18,8 @@ script = ExtResource("1_yqjtg")
 [node name="BGMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1449349977]
 unique_name_in_owner = true
 stream = ExtResource("2_lbhrr")
+parameters/looping = true
+script = ExtResource("3_p57ef")
 
 [node name="SFX" type="AudioStreamPlayer" parent="." unique_id=238890728]
 unique_name_in_owner = true

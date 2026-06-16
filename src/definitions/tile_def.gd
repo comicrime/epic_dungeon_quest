@@ -9,3 +9,10 @@ class_name TileDefinition extends Resource
 @export var is_walkable: bool = true 
 @export var is_transparent: bool = true 
 @export var is_interactable: bool = false
+@export_enum(
+	"UNKNOWN", 
+	"FLOOR", 
+	"WALL", 
+	"LEDDER_UP", 
+	"LEDDER_DOWN"
+) var type: String = "UNKNOWN"

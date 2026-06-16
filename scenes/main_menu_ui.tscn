@@ -95,3 +95,5 @@ position = Vector2(760, 195)
 scale = Vector2(4, 4)
 
 [connection signal="pressed" from="Layout/MarginContainer/VBoxContainer/New Game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Layout/MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Layout/MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

@@ -5,6 +5,9 @@ extends Node
 signal game_pause(state: bool)
 signal zoom(dir: int)
 signal game_requested(try_load: bool)
+signal options_requested(try_load: bool)
+signal main_menu_requested()
+signal exit_requested()
 signal sound_event(ui_id: String)
 signal message_sent(text: String, color: Color)
 
@@ -18,3 +21,4 @@ signal player_hp_change(new_hp: int)
 signal player_level_transition(level: int)
 signal player_died
 signal kill_inc(inc: int)
+signal dwell(player: Entity)
