@@ -14,5 +14,7 @@ class_name TileDefinition extends Resource
 	"FLOOR", 
 	"WALL", 
 	"LEDDER_UP", 
-	"LEDDER_DOWN"
+	"LEDDER_DOWN",
+	"CHASM", 
+	"INNER_CHASM"
 ) var type: String = "UNKNOWN"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TileDefinition" format=3 uid="uid://bktlt87s23ksb"]
+
+[ext_resource type="Script" uid="uid://cx8v3vamdswyd" path="res://src/definitions/tile_def.gd" id="1_6bruk"]
+[ext_resource type="Texture2D" uid="uid://2jxlqbtnfvhm" path="res://assets/raw/1bitpack_kenney_1.2/Tilesheet/monochrome.png" id="2_y4vdh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27qbh"]
+atlas = ExtResource("2_y4vdh")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_6bruk")
+texture = SubResource("AtlasTexture_27qbh")
+is_walkable = false
+type = "INNER_CHASM"

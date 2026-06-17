@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemDefinition" format=3 uid="uid://x0sqkgxgbk6g"]
+
+[ext_resource type="Script" uid="uid://iso5ttl30f2i" path="res://src/definitions/item_definition.gd" id="1_q2fil"]
+[ext_resource type="Texture2D" uid="uid://naiw6nueo5qn" path="res://assets/raw/1bitpack_kenney_1.2/Tilesheet/ff.png" id="2_mubry"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gie51"]
+atlas = ExtResource("2_mubry")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_q2fil")
+name = "debug sword"
+texture = SubResource("AtlasTexture_gie51")
+color = Color(1, 0, 1, 1)

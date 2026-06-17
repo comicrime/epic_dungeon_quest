@@ -6,7 +6,7 @@ func _init(entity: Entity) -> void:
 	self.entity = entity 
 
 func perform() -> void:
-	pass
+		pass
 
 func get_map_data() -> MapData:	
 	return self.entity.map_data

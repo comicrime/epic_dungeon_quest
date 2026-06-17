@@ -16,3 +16,10 @@ func perform() -> void:
 		if destination_tile.definition.type == "LEDDER_DOWN": 
 			print("dwell!")
 			MsgBus.dwell.emit(entity)
+		
+		# BRUH
+		var pos: Vector2i = Vector2i(self.entity.grid_position.x, self.entity.grid_position.y)
+		var item: WorldItem = self.get_map_data().get_item_at_location(pos)
+		if item and item.interactable: 
+			var pickup_action: PickupAction = PickupAction.new(entity, pos.x, pos.y, item)
+			pickup_action.perform()

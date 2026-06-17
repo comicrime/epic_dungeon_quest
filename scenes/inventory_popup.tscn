@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://comhwtjwwtcrh"]
+
+[ext_resource type="StyleBox" uid="uid://c7cxjkoqn0vin" path="res://resources/UITexture.tres" id="1_3a8po"]
+
+[node name="InventoryPopup" type="Control" unique_id=901807120]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1402684738]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer" unique_id=1410899353]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer/MarginContainer" unique_id=178307543]
+custom_minimum_size = Vector2(550, 300)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_3a8po")

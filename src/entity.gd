@@ -8,8 +8,7 @@ enum AIType {
 }
 
 enum EntityType {
-	CORPSE, 
-	ITEM, 
+	CORPSE,
 	ACTOR
 }
 
@@ -73,15 +72,3 @@ func get_entity_name() -> String:
 
 func is_alive() -> bool: 
 	return self.ai_component != null 
-
-func to_json() -> Dictionary: 
-	return {
-		"def": self.definition.resource_path,
-		"grid": {
-			"blocks_movement":blocks_movement,
-			"entity_name":entity_name, 
-			"fighter_component": position,
-			"scale":scale,
-			"modulate": modulate,
-		}
-	}

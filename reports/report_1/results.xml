@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-06-17" name="report_1" tests="1" failures="2" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="test_inventory" package="test/unit" timestamp="2026-06-17T14:32:01" hostname="localhost" tests="1" failures="2" errors="0" skipped="0" flaky="0" time="0.068">
+		<testcase name="test_inventory" classname="test_inventory" time="0.051">
+			<failure message="FAILED: res://test/unit/test_inventory.gd:11" type="FAILURE">
+<![CDATA[
+Expecting: 'true' but is 'false'
+]]>
+			</failure>
+			<failure message="FAILED: res://test/unit/test_inventory.gd:14" type="FAILURE">
+<![CDATA[
+Expecting:
+ <Sprite2D>
+ but was
+ '<null>'
+]]>
+			</failure>
+		</testcase>
+	</testsuite>
+</testsuites>

@@ -91,7 +91,7 @@ func _carve_room(dungeon: MapData, room: Rect2i) -> void:
 	var inner: Rect2i = room.grow(-1)
 	for y in range(inner.position.y, inner.end.y + 1):
 		for x in range(inner.position.x, inner.end.x + 1):
-			_carve_tile(dungeon, x, y)
+			_carve_tile(dungeon, x, y, false)
 		
 	#for y in range(room.position.y, inner.end.y + 1):
 		#for x in range(room.position.x, room.end.x + 1):
@@ -106,13 +106,13 @@ func _tunnel_horizontal(dungeon: MapData, y: int, x_start: int, x_end: int) -> v
 	var x_min: int = mini(x_start, x_end)
 	var x_max: int = maxi(x_start, x_end)
 	for x in range(x_min, x_max + 1):
-		_carve_tile(dungeon, x, y)
+		_carve_tile(dungeon, x, y, false)
 
 func _tunnel_vertical(dungeon: MapData, x: int, y_start: int, y_end: int) -> void:
 	var y_min: int = mini(y_start, y_end)
 	var y_max: int = maxi(y_start, y_end)
 	for y in range(y_min, y_max + 1):
-		_carve_tile(dungeon, x, y)
+		_carve_tile(dungeon, x, y, false)
 
 func _tunnel_between(dungeon: MapData, start_room: Rect2i, end_room: Rect2i) -> void:
 	var start: Vector2i = start_room.get_center()
@@ -132,10 +132,18 @@ func _adjust_center_randomly(room: Rect2i) -> Vector2i:
 	var adjusted_x: int = _rng.randi_range(room.position.x, room.end.x)
 	return Vector2i(adjusted_x, adjusted_y)
 
-func _carve_tile(dungeon: MapData, x: int, y: int) -> void:
+func _carve_tile(dungeon: MapData, x: int, y: int, with_chasms: bool) -> void:
 		var tile_position = Vector2i(x, y)
+		
 		var tile: Tile = dungeon.get_tile(tile_position)
-		tile.set_tile_type(dungeon.floor_type(self._rng))
+		var tile_above: Tile = dungeon.get_tile(tile_position + Vector2i.UP)
+		
+		var tile_type: Resource = dungeon.floor_type(self._rng, with_chasms)
+		
+		if tile_above.definition.type == "CHASM": 
+			tile_type = dungeon.tile_types.get(MapData.TileType.InnerChasm)
+			
+		tile.set_tile_type(tile_type)
 
 func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 	var number_of_monsters: int = _rng.randi_range(0, max_monsters_per_room)
@@ -150,7 +158,19 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 			if entity.grid_position == new_entity_position:
 				can_place = false
 				break
+		for item in dungeon.items:
+			#print("item.grid_position: ", item.grid_position)
+			if item.grid_position == new_entity_position:
+				can_place = false
+				break
 		if can_place:
+			if _rng.randf() > 0.1 :
+					print(new_entity_position) 
+					dungeon.items.append(WorldItem.new(
+						load("res://resources/items/debugsword.tres"), 
+						Item.ItemType.UNKNOWN,
+						new_entity_position,
+					))
 			for eid in self.entity_types.keys(): 
 				if _rng.randf() <= self.entity_spawn_rates[eid]:
 					dungeon.entities.append(Entity.new(dungeon, new_entity_position, entity_types.get(eid)))

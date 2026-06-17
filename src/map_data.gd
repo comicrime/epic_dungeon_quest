@@ -1,5 +1,5 @@
 class_name MapData
-
+extends Node
 # Map model
 
 enum TileType {
@@ -9,7 +9,8 @@ enum TileType {
 	LedderUP,
 	LedderDOWN,
 	Door1,
-	Chasm
+	Chasm, 
+	InnerChasm
 }
 
 const tile_types: Dictionary[TileType, Resource] = {
@@ -19,17 +20,18 @@ const tile_types: Dictionary[TileType, Resource] = {
 	TileType.LedderUP: preload("res://resources/tiles/ledder_up.tres"),
 	TileType.LedderDOWN: preload("res://resources/tiles/ledder_down.tres"),
 	TileType.Door1: preload("res://resources/tiles/door_1.tres"),
-	TileType.Chasm: preload("res://resources/tiles/chasm.tres")
+	TileType.Chasm: preload("res://resources/tiles/chasm.tres"), 
+	TileType.InnerChasm: preload("res://resources/tiles/inner_chasm.tres")
 }
 
 const _cobbles_spawnrate: float = 0.8
 const entity_pathfinding_weight: float = 10.0
-const _chasm_spawnrate: float = 0.02
+const _chasm_spawnrate: float = 0.2
 
 var level:int
 
-func floor_type(rng: RandomNumberGenerator) -> Resource:
-	if rng.randf() <= _chasm_spawnrate:
+func floor_type(rng: RandomNumberGenerator, with_chasms: bool) -> Resource:
+	if rng.randf() <= _chasm_spawnrate and with_chasms:
 		return tile_types.get(TileType.Chasm)
 	if rng.randf() <= _cobbles_spawnrate:
 		return tile_types.get(TileType.CobbleFloor1)
@@ -48,6 +50,7 @@ var width: int
 var height: int
 var tiles: Array[Tile]
 var entities: Array[Entity]
+var items: Array[WorldItem]
 
 var player: Entity
 
@@ -61,6 +64,10 @@ func _init(level:int, map_width: int, map_height: int, p: Entity) -> void:
 	self.level = level
 	entities = []
 	_setup_tiles()
+
+func _ready() -> void: 
+	print_debug("map_data is ready")
+	MsgBus.item_pickup_confirm.connect(_on_item_pickup_confirm)
 
 func _setup_tiles() -> void:
 	tiles = []
@@ -133,6 +140,9 @@ func get_actors() -> Array[Entity]:
 func get_tiles() -> Array[Tile]: 
 	return self.tiles
 
+func get_items() -> Array[WorldItem]: 
+	return self.items
+
 func get_actor_at_location(location: Vector2i) -> Entity:
 	for actor in self.get_actors():
 		if actor.grid_position == location:
@@ -145,3 +155,25 @@ func get_tile_at_location(location: Vector2i) -> Tile:
 		if Grid.world_to_grid(tile.global_position) == location:
 			return tile 
 	return null
+
+func get_item_at_location(location: Vector2i) -> WorldItem:
+	for item in self.get_items():
+		if Grid.world_to_grid(item.global_position) == location:
+			return item 
+	return null
+
+func _on_item_pickup_confirm(item: Item) -> void: 
+	var new_arr: Array[WorldItem] 
+	for map_item: Item in self.items: 
+		
+		if !map_item:
+			continue
+		if map_item != item: 
+			new_arr.append(map_item as WorldItem)
+			continue
+			
+		map_item.interactable = false
+		map_item.visible = false
+		map_item.free()
+		
+	self.items = new_arr

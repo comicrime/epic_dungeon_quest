@@ -1,8 +1,5 @@
 class_name Game extends Node2D
 
-# SIGNALS
-signal player_created(player)
-
 # CONSTS
 const player_definition: EntityDefinition = preload("res://resources/entities/player_definition.tres")
 const tile_size = 16
@@ -21,7 +18,7 @@ func _ready() -> void:
 	player = Entity.new(null, Vector2i.ZERO, player_definition)
 	player.is_player = true
 	MsgBus.player_hp_change.emit(player.fighter_component.hp, player.fighter_component.max_hp)
-	player_created.emit(player)
+	MsgBus.player_init.emit(player)
 	
 	remove_child(camera)
 	player.add_child(camera)

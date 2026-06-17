@@ -17,3 +17,6 @@ func get_target_actor() -> Entity:
 
 func get_target_tile() -> Tile: 
 	return self.get_map_data().get_tile_at_location(self.get_destination())
+
+func get_target_item() -> WorldItem: 
+	return self.get_map_data().get_item_at_location(self.get_destination())
