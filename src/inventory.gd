@@ -11,7 +11,7 @@ func _init(invsize: int, entity: Entity) -> void:
 	self.size = invsize 
 	self.slots.resize(invsize)
 	for i in range(self.slots.size()): 
-		var stack = Stack.new([], 1)
+		var stack = Stack.new()
 		self.slots[i] = stack
 	self.entity = entity
 
@@ -49,7 +49,7 @@ func append_item_if_possible(item: Item) -> bool:
 			first_empty_stack = stack 
 			continue 
 		
-		if stack.item_id != item.item_id and stack.size() > 0: 
+		if stack.item_id != "" and stack.item_id != item.item_id and stack.size() > 0: 
 			continue
 		selected_slot = stack 
 		break
