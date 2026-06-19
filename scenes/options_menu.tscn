@@ -2,49 +2,37 @@
 
 [ext_resource type="Script" uid="uid://dtqmnp1v435y0" path="res://src/options_menu.gd" id="1_hm4m4"]
 [ext_resource type="FontFile" uid="uid://cctihvugpalym" path="res://assets/fonts/ByteBounce.ttf" id="1_ijpji"]
+[ext_resource type="Script" uid="uid://bmhe150jebvgr" path="res://src/rich_text_effect.gd" id="2_hm4m4"]
+[ext_resource type="Script" uid="uid://b5qd3ksblypf6" path="res://src/ui_button.gd" id="4_lfjc7"]
 
-[sub_resource type="GDScript" id="GDScript_qnnn4"]
-script/source = "@tool
-extends RichTextEffect
-class_name CustomShake
-
-var bbcode = \"customshake\"
-
-func _process_custom_fx(fx: CharFXTransform) -> bool:
-	var angle = deg_to_rad(fx.env.get(\"rot\", 0.0))
-	var char_count = fx.env.get(\"char_count\", 1)
-	var offset: float = fx.relative_index / char_count
-	var desired_angle: float = lerp_angle(-angle, angle, offset)
-	fx.transform = fx.transform.rotated_local(desired_angle)
-	return true
-"
-
-[sub_resource type="RichTextEffect" id="RichTextEffect_lbhrr"]
-script = SubResource("GDScript_qnnn4")
-metadata/_custom_type_script = "uid://d3f30dyrsnwym"
+[sub_resource type="RichTextEffect" id="RichTextEffect_lfjc7"]
+script = ExtResource("2_hm4m4")
+metadata/_custom_type_script = "uid://bmhe150jebvgr"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ijpji"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hm4m4"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3xsyx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfjc7"]
 
-[node name="OptionsMenu" type="Control" unique_id=2104789145]
-layout_mode = 3
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hm4m4"]
+
+[node name="OptionsMenu" type="MarginContainer" unique_id=1879506271]
+custom_maximum_size = Vector2(1024, 800)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
 script = ExtResource("1_hm4m4")
 
 [node name="Layout" type="VBoxContainer" parent="." unique_id=220250662]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+propagate_maximum_size = false
+layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
@@ -55,61 +43,112 @@ text = "[font=res://assets/fonts/ByteBounce.ttf][font_size=59][wave amp=10][cust
 fit_content = true
 tab_size = 0
 horizontal_alignment = 1
-custom_effects = [SubResource("RichTextEffect_lbhrr")]
+custom_effects = [SubResource("RichTextEffect_lfjc7")]
 
 [node name="HSeparator" type="HSeparator" parent="Layout" unique_id=280791009]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Layout" unique_id=840082745]
-layout_mode = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 100
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Layout/MarginContainer" unique_id=6470624]
+[node name="VBoxContainer" type="VBoxContainer" parent="Layout" unique_id=6470624]
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Layout/MarginContainer/VBoxContainer" unique_id=1591115828]
+[node name="SfxVolumeRow" type="HBoxContainer" parent="Layout/VBoxContainer" unique_id=985581578]
 custom_minimum_size = Vector2(70, 0)
+custom_maximum_size = Vector2(800, -1)
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Panel" type="PanelContainer" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer" unique_id=18931002]
-custom_minimum_size = Vector2(70, 0)
+[node name="Panel" type="PanelContainer" parent="Layout/VBoxContainer/SfxVolumeRow" unique_id=1155871561]
+custom_minimum_size = Vector2(185, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ijpji")
 
-[node name="RichTextLabel" type="Label" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer/Panel" unique_id=359164010]
+[node name="RichTextLabel" type="Label" parent="Layout/VBoxContainer/SfxVolumeRow/Panel" unique_id=486835877]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_ijpji")
 theme_override_font_sizes/font_size = 36
-text = "Volume:"
+text = "SFX Volume:"
 
-[node name="Low" type="Button" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1882194715]
+[node name="SfxLow" type="Button" parent="Layout/VBoxContainer/SfxVolumeRow" unique_id=329935822]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_ijpji")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = SubResource("StyleBoxEmpty_hm4m4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3xsyx")
 text = "<"
+script = ExtResource("4_lfjc7")
 
-[node name="PanelContainer" type="PanelContainer" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer" unique_id=163014916]
-custom_minimum_size = Vector2(800, 0)
+[node name="PanelContainer" type="PanelContainer" parent="Layout/VBoxContainer/SfxVolumeRow" unique_id=1669958693]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
-[node name="VolumeBar" type="ProgressBar" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=915006042]
+[node name="SfxVolumeBar" type="ProgressBar" parent="Layout/VBoxContainer/SfxVolumeRow/PanelContainer" unique_id=2090103393]
 unique_name_in_owner = true
 layout_mode = 2
 step = 5.0
 value = 100.0
 rounded = true
 
-[node name="Up" type="Button" parent="Layout/MarginContainer/VBoxContainer/HBoxContainer" unique_id=620827256]
+[node name="SfxUp" type="Button" parent="Layout/VBoxContainer/SfxVolumeRow" unique_id=715035937]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_ijpji")
 theme_override_font_sizes/font_size = 36
 theme_override_styles/normal = SubResource("StyleBoxEmpty_lfjc7")
 text = ">"
+script = ExtResource("4_lfjc7")
 
-[connection signal="pressed" from="Layout/MarginContainer/VBoxContainer/HBoxContainer/Low" to="." method="_on_low_pressed"]
-[connection signal="pressed" from="Layout/MarginContainer/VBoxContainer/HBoxContainer/Up" to="." method="_on_up_pressed"]
+[node name="MusicVolumeRow" type="HBoxContainer" parent="Layout/VBoxContainer" unique_id=1591115828]
+custom_minimum_size = Vector2(70, 0)
+custom_maximum_size = Vector2(800, -1)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Panel" type="PanelContainer" parent="Layout/VBoxContainer/MusicVolumeRow" unique_id=18931002]
+custom_minimum_size = Vector2(185, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ijpji")
+
+[node name="RichTextLabel" type="Label" parent="Layout/VBoxContainer/MusicVolumeRow/Panel" unique_id=359164010]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ijpji")
+theme_override_font_sizes/font_size = 36
+text = "Music Volume:"
+
+[node name="MusicLow" type="Button" parent="Layout/VBoxContainer/MusicVolumeRow" unique_id=1882194715]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ijpji")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hm4m4")
+text = "<"
+script = ExtResource("4_lfjc7")
+
+[node name="PanelContainer" type="PanelContainer" parent="Layout/VBoxContainer/MusicVolumeRow" unique_id=163014916]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="MusicVolumeBar" type="ProgressBar" parent="Layout/VBoxContainer/MusicVolumeRow/PanelContainer" unique_id=915006042]
+unique_name_in_owner = true
+layout_mode = 2
+step = 5.0
+value = 100.0
+rounded = true
+
+[node name="MusicUp" type="Button" parent="Layout/VBoxContainer/MusicVolumeRow" unique_id=620827256]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ijpji")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lfjc7")
+text = ">"
+script = ExtResource("4_lfjc7")
+
+[node name="MarginContainer" type="MarginContainer" parent="Layout" unique_id=840082745]
+visible = false
+custom_maximum_size = Vector2(800, -1)
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 100
+
+[connection signal="pressed" from="Layout/VBoxContainer/SfxVolumeRow/SfxLow" to="." method="_on_sfx_low_pressed"]
+[connection signal="pressed" from="Layout/VBoxContainer/SfxVolumeRow/SfxUp" to="." method="_on_sfx_up_pressed"]
+[connection signal="pressed" from="Layout/VBoxContainer/MusicVolumeRow/MusicLow" to="." method="_on_low_pressed"]
+[connection signal="pressed" from="Layout/VBoxContainer/MusicVolumeRow/MusicUp" to="." method="_on_up_pressed"]

@@ -41,6 +41,12 @@ func die() -> void:
 	
 	MessageLog.send_message(death_message, death_message_color)
 	entity.texture = death_texture
+	
+	var item: WorldItem = entity.map_data.get_item_at_location(entity.grid_position)
+	
+	if item: 
+		item.z_index = entity.z_index + 1
+	
 	entity.modulate = death_color
 	entity.ai_component.queue_free()
 	entity.ai_component = null

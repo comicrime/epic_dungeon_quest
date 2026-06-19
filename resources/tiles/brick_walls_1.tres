@@ -10,8 +10,8 @@ region = Rect2(170, 289, 16, 16)
 [resource]
 script = ExtResource("1_fvc5d")
 texture = SubResource("AtlasTexture_dvbou")
-color_lit = Color(0.4200054, 0.44292596, 0.48433495, 1)
-color_dark = Color(0.25899887, 0.27859735, 0.37668842, 1)
+color_lit = Color(0.49334228, 0.5180366, 0.5632855, 1)
+color_dark = Color(0.28932253, 0.31057826, 0.41651854, 1)
 is_walkable = false
 is_transparent = false
 type = "WALL"

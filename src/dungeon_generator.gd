@@ -8,8 +8,8 @@ class_name DungeonGenerator extends Node
 @export var items: Array[Resource]
 
 @export_category("Map Dimensions")
-@export var map_width: int = 50
-@export var map_height: int = 20
+@export var map_width: int = 60
+@export var map_height: int = 40
 
 @export_category("Rooms RNG")
 @export var max_rooms: int = 30
@@ -50,7 +50,7 @@ func generate_dungeon(player:Entity) -> MapData:
 		var has_intersections := false
 		for room in rooms:
 			# Rect2i.intersects() checks for overlapping points. In order to allow bordering rooms one room is shrunk.
-			if room.intersects(new_room.grow(-1)):
+			if room.intersects(new_room.grow(2)):
 				has_intersections = true
 				break
 				
@@ -67,7 +67,7 @@ func generate_dungeon(player:Entity) -> MapData:
 			player.map_data = dungeon
 			start_room = new_room
 		else:
-			_tunnel_between(dungeon, rooms.back(), new_room)
+			_tunnel_between(dungeon, new_room, rooms.back())
 		
 		_place_entities(dungeon, new_room)
 		rooms.append(new_room)
@@ -91,7 +91,7 @@ func _carve_room(dungeon: MapData, room: Rect2i) -> void:
 	var inner: Rect2i = room.grow(-1)
 	for y in range(inner.position.y, inner.end.y + 1):
 		for x in range(inner.position.x, inner.end.x + 1):
-			_carve_tile(dungeon, x, y, false)
+			_carve_tile(dungeon, x, y, false, true)
 		
 	#for y in range(room.position.y, inner.end.y + 1):
 		#for x in range(room.position.x, room.end.x + 1):
@@ -106,13 +106,13 @@ func _tunnel_horizontal(dungeon: MapData, y: int, x_start: int, x_end: int) -> v
 	var x_min: int = mini(x_start, x_end)
 	var x_max: int = maxi(x_start, x_end)
 	for x in range(x_min, x_max + 1):
-		_carve_tile(dungeon, x, y, false)
+		_carve_tile(dungeon, x, y, false, false)
 
 func _tunnel_vertical(dungeon: MapData, x: int, y_start: int, y_end: int) -> void:
 	var y_min: int = mini(y_start, y_end)
 	var y_max: int = maxi(y_start, y_end)
 	for y in range(y_min, y_max + 1):
-		_carve_tile(dungeon, x, y, false)
+		_carve_tile(dungeon, x, y, false, false)
 
 func _tunnel_between(dungeon: MapData, start_room: Rect2i, end_room: Rect2i) -> void:
 	var start: Vector2i = start_room.get_center()
@@ -132,13 +132,16 @@ func _adjust_center_randomly(room: Rect2i) -> Vector2i:
 	var adjusted_x: int = _rng.randi_range(room.position.x, room.end.x)
 	return Vector2i(adjusted_x, adjusted_y)
 
-func _carve_tile(dungeon: MapData, x: int, y: int, with_chasms: bool) -> void:
+func _carve_tile(dungeon: MapData, x: int, y: int, with_chasms: bool, with_s_chest: bool) -> void:
 		var tile_position = Vector2i(x, y)
 		
 		var tile: Tile = dungeon.get_tile(tile_position)
 		var tile_above: Tile = dungeon.get_tile(tile_position + Vector2i.UP)
 		
-		var tile_type: Resource = dungeon.floor_type(self._rng, with_chasms)
+		if tile.definition.type == "FLOOR": 
+			return
+		
+		var tile_type: Resource = dungeon.floor_type(self._rng, with_chasms, with_s_chest)
 		
 		if tile_above.definition.type == "CHASM": 
 			tile_type = dungeon.tile_types.get(MapData.TileType.InnerChasm)
@@ -168,7 +171,6 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 					print(new_entity_position) 
 					dungeon.items.append(WorldItem.new(
 						load("res://resources/items/debugsword.tres"), 
-						Item.ItemType.UNKNOWN,
 						new_entity_position,
 					))
 			for eid in self.entity_types.keys(): 

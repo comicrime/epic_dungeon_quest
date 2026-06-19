@@ -23,3 +23,12 @@ func perform() -> void:
 		if item and item.interactable: 
 			var pickup_action: PickupAction = PickupAction.new(entity, pos.x, pos.y, item)
 			pickup_action.perform()
+			return
+			
+		var tile_def: TileDefinition = destination_tile.definition
+		#var interactible_component: InteractibleComponentDefinition = destination_tile.definition.interactible_component
+		#if (tile_def.is_interactable 
+			#and interactible_component  
+			#and interactible_component.action_component):
+				#pass
+		

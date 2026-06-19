@@ -10,7 +10,9 @@ enum TileType {
 	LedderDOWN,
 	Door1,
 	Chasm, 
-	InnerChasm
+	InnerChasm,
+	SilverChest,
+	TallGrass,
 }
 
 const tile_types: Dictionary[TileType, Resource] = {
@@ -21,20 +23,34 @@ const tile_types: Dictionary[TileType, Resource] = {
 	TileType.LedderDOWN: preload("res://resources/tiles/ledder_down.tres"),
 	TileType.Door1: preload("res://resources/tiles/door_1.tres"),
 	TileType.Chasm: preload("res://resources/tiles/chasm.tres"), 
-	TileType.InnerChasm: preload("res://resources/tiles/inner_chasm.tres")
+	TileType.InnerChasm: preload("res://resources/tiles/inner_chasm.tres"),
+	TileType.SilverChest: preload("res://resources/tiles/silver_chest.tres"),
+	TileType.TallGrass: preload("res://resources/tiles/tall_grass.tres")
 }
 
 const _cobbles_spawnrate: float = 0.8
 const entity_pathfinding_weight: float = 10.0
 const _chasm_spawnrate: float = 0.2
+const _tall_grass_spawn_rate: float = 0.03
+
+const _silver_chest_spawn_rate: float = 0.005 #DBG, change to 0.0...
 
 var level:int
 
-func floor_type(rng: RandomNumberGenerator, with_chasms: bool) -> Resource:
+func floor_type(
+	rng: RandomNumberGenerator, 
+	with_chasms: bool = false, 
+	with_chests: bool = false,
+) -> Resource:
+	if rng.randf() <= _tall_grass_spawn_rate:
+		return tile_types.get(TileType.TallGrass) 
+	if rng.randf() <= _silver_chest_spawn_rate and with_chests:
+		return tile_types.get(TileType.SilverChest) 
 	if rng.randf() <= _chasm_spawnrate and with_chasms:
 		return tile_types.get(TileType.Chasm)
 	if rng.randf() <= _cobbles_spawnrate:
 		return tile_types.get(TileType.CobbleFloor1)
+		
 
 	return tile_types.get(TileType.CobbleFloor2)
 

@@ -8,8 +8,8 @@ var grid_position: Vector2i:
 		grid_position = value
 		position = Grid.grid_to_world(grid_position)
 
-func _init(def: ItemDefinition, item_type: ItemType, pos: Vector2i) -> void: 
-	super(def, item_type)
+func _init(def: ItemDefinition, pos: Vector2i) -> void: 
+	super(def)
 	self.grid_position = pos 
 	centered = false
 	scale = Grid.DEFAULT_SCALE

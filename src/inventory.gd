@@ -10,6 +10,9 @@ var slots: Array[Stack]
 func _init(invsize: int, entity: Entity) -> void: 
 	self.size = invsize 
 	self.slots.resize(invsize)
+	for i in range(self.slots.size()): 
+		var stack = Stack.new([], 1)
+		self.slots[i] = stack
 	self.entity = entity
 
 func _ready() -> void: 
@@ -23,11 +26,13 @@ func item_callback_mw(cb: Callable) -> Callable:
 			return 
 		cb.call(item, actor)
 
-func _on_item_pickup(item: Item, actor: Entity) -> void: 
-	var litem: Item = item.duplicate_item()
-	MsgBus.item_pickup_confirm.emit(item)
-	MessageLog.send_message("You picked up a " + litem.item_name, GameColors.WELCOME_TEXT)
-	pass
+func _on_item_pickup(i: Item, actor: Entity) -> void: 
+	var item: Item = i.duplicate_item()
+	if append_item_if_possible(item):
+		MsgBus.item_pickup_confirm.emit(i)
+		MessageLog.send_message("You picked up a " + item.item_name, GameColors.WELCOME_TEXT)
+		MsgBus.sound_event.emit("pickup")
+	print_debug("inventory slots: ", self.slots, " size: ", slots.size())
 
 func _on_item_used(item: Item, actor: Entity) -> void: 
 	pass
@@ -36,9 +41,26 @@ func _on_item_update(item: Item, actor: Entity) -> void:
 	pass
 
 func append_item_if_possible(item: Item) -> bool: 
-	if slots.size() >= size: 
-		return false 
-	slots.append(item)
+	var new_stack: bool
+	var selected_slot: Stack
+	var first_empty_stack: Stack 
+	for stack in self.slots: 
+		if !first_empty_stack and (!stack or stack.size() <= 0): 
+			first_empty_stack = stack 
+			continue 
+		
+		if stack.item_id != item.item_id and stack.size() > 0: 
+			continue
+		selected_slot = stack 
+		break
+	
+	if !selected_slot: 
+		if first_empty_stack:
+			selected_slot = first_empty_stack
+		else: 
+			return false
+		
+	selected_slot.append(item)
 	return true
 
 func set_item(item: Item, idx: int) -> Item: 

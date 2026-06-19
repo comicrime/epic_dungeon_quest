@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDefinition" format=3 uid="uid://e3k0x1dw54g1"]
+
+[ext_resource type="Script" uid="uid://iso5ttl30f2i" path="res://src/definitions/item_def.gd" id="1_1llj2"]
+[ext_resource type="Script" uid="uid://bu67yodfp2gc2" path="res://src/definitions/consumable_component_def.gd" id="1_bt330"]
+[ext_resource type="Texture2D" uid="uid://2jxlqbtnfvhm" path="res://assets/raw/1bitpack_kenney_1.2/Tilesheet/monochrome.png" id="3_6jgo5"]
+
+[sub_resource type="Resource" id="Resource_up333"]
+script = ExtResource("1_bt330")
+metadata/_custom_type_script = "uid://bu67yodfp2gc2"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1llj2"]
+atlas = ExtResource("3_6jgo5")
+region = Rect2(544, 221, 16, 16)
+
+[resource]
+script = ExtResource("1_1llj2")
+id = "healing_potion_small"
+name = "Small Healing Potion"
+texture = SubResource("AtlasTexture_1llj2")
+color = Color(0.82843345, 0.25684157, 0.32114893, 1)
+consumable_component = SubResource("Resource_up333")

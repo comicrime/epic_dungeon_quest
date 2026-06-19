@@ -1,5 +1,6 @@
 class_name Stack extends RefCounted 
 
+var item_id: String
 var items: Array[Item]
 var max_size: int
 
@@ -11,12 +12,27 @@ func size() -> int:
 	return items.size()
 
 func append(item: Item) -> bool: 
+	if self.items.size() > 0:
+		if item.item_id != self.item_id: 
+			return false
+	else: 
+		self.item_id = item.item_id
+		
 	if self.items.size() + 1 > max_size: 
 		return false 
 	self.items.append(item)
 	return true
 
 func append_n(arr: Array[Item]) -> bool:
+	if arr.size() <= 0: 
+		return true
+		
+	if self.items.size() > 0:
+		if arr[0].item_id != self.item_id: 
+			return false
+	else: 
+		self.item_id = arr[0].item_id
+		
 	if self.items.size() + arr.size() > max_size: 
 		return false 
 	self.items.append_array(arr)

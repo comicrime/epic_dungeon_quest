@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="TileDefinition" format=3 uid="uid://cey866xonmj0o"]
+
+[ext_resource type="Script" uid="uid://cx8v3vamdswyd" path="res://src/definitions/tile_def.gd" id="1_kti5i"]
+[ext_resource type="Texture2D" uid="uid://2jxlqbtnfvhm" path="res://assets/raw/1bitpack_kenney_1.2/Tilesheet/monochrome.png" id="2_4b17o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jx2qa"]
+atlas = ExtResource("2_4b17o")
+region = Rect2(0, 34, 15, 16)
+
+[resource]
+script = ExtResource("1_kti5i")
+texture = SubResource("AtlasTexture_jx2qa")
+color_lit = Color(0.5275897, 0.7011303, 0.30384028, 1)
+color_dark = Color(0.25278088, 0.44428498, 0.23117787, 1)
+is_transparent = false
+is_interactable = true
+type = "TALL_GRASS"

@@ -78,8 +78,8 @@ entity_spawn_rates = Dictionary[String, float]({
 "sewers_snake": 0.05
 })
 items = Array[Resource]([])
-map_width = 50
-map_height = 20
+map_width = 60
+map_height = 40
 max_rooms = 30
 room_max_size = 15
 room_min_size = 8
@@ -146,6 +146,12 @@ theme_override_fonts/font = ExtResource("11_rc3rg")
 theme_override_font_sizes/font_size = 24
 text = "100000"
 script = ExtResource("11_spf7w")
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/BottomUI/GameStatePannel/VBoxContainer" unique_id=2001285227]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="MarginContainer/BottomUI/GameStatePannel/VBoxContainer/PanelContainer2" unique_id=572125856]
+layout_mode = 2
 
 [node name="LogPannel" type="PanelContainer" parent="MarginContainer/BottomUI" unique_id=1584300173]
 custom_minimum_size = Vector2(800, 150)

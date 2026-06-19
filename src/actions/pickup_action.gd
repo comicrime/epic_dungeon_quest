@@ -9,3 +9,4 @@ func _init(entity: Entity, dx: int, dy: int, litem: Item) -> void:
 func perform() -> void: 
 	print("pickup!")
 	MsgBus.item_pickup.emit(self.item, self.entity)
+	

@@ -16,5 +16,9 @@ class_name TileDefinition extends Resource
 	"LEDDER_UP", 
 	"LEDDER_DOWN",
 	"CHASM", 
-	"INNER_CHASM"
+	"INNER_CHASM",
+	"SILVER_CHEST",
+	"TALL_GRASS"
 ) var type: String = "UNKNOWN"
+
+#@export var interactible_component: InteractibleComponentDefinition
